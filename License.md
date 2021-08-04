@@ -1,6 +1,5 @@
 SWT Public License
 
- 1. Use the same license or license with less restrictions.
  
  2. Specify the authors of all products used.
  
