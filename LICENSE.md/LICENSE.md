@@ -1,7 +1,11 @@
-SWT Public License (Ms-PL)
+SWT Public License
 
-This license governs use of the accompanying software. If you use the
-software, you accept this license. If you do not accept the license,
-do not use the software.
+ 1. Use the same license or license with less restrictions.
+ 
+ 2. Specify the authors of all products used.
+ 
+ 3. You can use this product for commercial purposes.
+ 
+ 4. You can change and distribute the product.
 
- 1. No fun
+If you need to neglect some of the rules, refer to the author.
