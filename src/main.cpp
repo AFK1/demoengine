@@ -1,10 +1,5 @@
-
-#include<iostream>
-#include<glad/glad.h>
-#include<GLFW/glfw3.h>
-#include<cmath>
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include <swt.hpp>
+#include <glLoader.h>
 
 float x = 0;
 float y = 0;
@@ -106,7 +101,7 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	gladLoadGL();
+	glLoadExt();
 	glViewport(0, 0, 500, 500);
 
 
