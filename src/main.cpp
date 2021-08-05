@@ -72,39 +72,6 @@ int main()
 	glLoadExt();
 	glViewport(0, 0, 500, 500);
 
-
-	/*
-	// Итак, объясняю, как это работает:
-	
-	// Мы создаём системную переменную-ключ, которая позволяет нам открывать файлы.
-	// Не вдаваясь в подробности, это как VAO/VBO в OpenGL.
-	FILE* texture_f;
-	struct Farbfeld_header * texture_h = (struct Farbfeld_header*) malloc(sizeof(struct Farbfeld_header));
-	// задаём файл, который надо открыть.
-	// fopen( <Название_файла>, <Тип_открытия>).
-	// В данном случае файл - DIO.ff, а тип - r(ead only)
-	texture_f = fopen("DIO.ff", "r");
-
-	// Узнаём размер файла, для этого:
-	// Переходим в самый конец файла
-	// fseek(<Файл>, <смещение>, <Точка_начала_смещения>).
-	// У нас точка начала - это конец файла.
-	fseek(texture_f, 0L, SEEK_END);
-	// записываем позицию курсора.
-	size_t sz = ftell(texture_f);
-	// Возвращаем курсор на место.
-	rewind(texture_f);
-
-	// Выделяем баффер под текстуру.
-	const char* textureRaw = (const char*)malloc(sz*sizeof(char));
-	// Считываем файл.
-	fread((void*)texture_h, sizeof(struct Farbfeld_header), 1, texture_f);
-	fread((void*)textureRaw, sizeof(char), sz-sizeof(struct Farbfeld_header), texture_f);
-
-	printf("\nTexture: %s\nWidth: %ud\nHeight: %ud\n", texture_h->magic, texture_h->w, texture_h->h);
-
-	*/
-
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
