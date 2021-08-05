@@ -1,13 +1,5 @@
-#include<iostream>
-#include<stdio.h>
-#include<glad/glad.h>
-#include<GLFW/glfw3.h>
-#include<cmath>
-#include <fstream>
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-#include <stdint.h>
-
+#include <swt.hpp>
+#include <glLoader.h>
 
 struct Farbfeld_header {
 	uint64_t magic;
@@ -77,8 +69,7 @@ int main()
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-
-	gladLoadGL();
+	glLoadExt();
 	glViewport(0, 0, 500, 500);
 
 
