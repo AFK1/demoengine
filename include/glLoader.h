@@ -15,11 +15,11 @@ static PFNGLUNIFORM4FPROC glUniform4f;
 static PFNGLENABLEVERTEXATTRIBARRAYPROC
 	  glEnableVertexAttribArray;
 static PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer;
-
 static PFNGLBUFFERDATAPROC glBufferData;
 static PFNGLBINDBUFFERPROC glBindBuffer;
 static PFNGLBindVertexArraysPROC glBindVertexArrays;
 static PFNGLGENBUFFERSPROC glGenBuffers;
+static PFNGLCREATESHADERPROC glCreateShader;
 
 void
 glLoadExt();

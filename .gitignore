@@ -1,3 +1,7 @@
 # Build dirs
 ?build/
 build/
+
+# IDE configs
+.vs/
+CMakeSettings.json

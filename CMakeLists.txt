@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.19)
 
 project(ebfswt)
 
@@ -9,10 +9,14 @@ include_directories(include)
 
 add_executable(${PROJECT_NAME}
 src/main.cpp
+src/glLoader.c
+include/glLoader.h
+include/swt.hpp
+include/stb_image.h
 )
 
 
 target_link_libraries(${PROJECT_NAME}
-  OpenGL::GL                           # Opengl
-  glfw                                 # GLFW
+glfw
+OpenGL::GL
 )
