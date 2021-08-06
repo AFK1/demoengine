@@ -17,7 +17,6 @@ static PFNGLENABLEVERTEXATTRIBARRAYPROC
 static PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer;
 static PFNGLBUFFERDATAPROC glBufferData;
 static PFNGLBINDBUFFERPROC glBindBuffer;
-static PFNGLBindVertexArraysPROC glBindVertexArrays;
 static PFNGLGENBUFFERSPROC glGenBuffers;
 static PFNGLCREATESHADERPROC glCreateShader;
 

@@ -15,7 +15,6 @@ glLoadExt()
   glVertexAttribPointer         = (PFNGLUSEPROGRAMPROC)glfwGetProcAddress("glVertexAttribPointer");
   glBufferData                  = (PFNGLUSEPROGRAMPROC)glfwGetProcAddress("glBufferData");
   glBindBuffer                  = (PFNGLUSEPROGRAMPROC)glfwGetProcAddress("glBindBuffer");
-  glBindVertexArrays            = (PFNGLUSEPROGRAMPROC)glfwGetProcAddress("glBindVertexArrays");
   glGenBuffers                  = (PFNGLUSEPROGRAMPROC)glfwGetProcAddress("glGenBuffers");
   glCreateShader                = (PFNGLUSEPROGRAMPROC)glfwGetProcAddress("glCreateShader");
 
