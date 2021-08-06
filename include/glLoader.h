@@ -1,8 +1,9 @@
 #ifndef __GL_LOADER_H_
 #define __GL_LOADER_H_
 
-#include <GL/glext.h>
+#include <GLFW/glfw3.h>
 #include <GL/gl.h>
+#include <GL/glext.h>
 
 static PFNGLUSEPROGRAMPROC glUseProgram;
 static PFNGLDELETEPROGRAMPROC glDeleteProgram;
@@ -19,6 +20,16 @@ static PFNGLBUFFERDATAPROC glBufferData;
 static PFNGLBINDBUFFERPROC glBindBuffer;
 static PFNGLGENBUFFERSPROC glGenBuffers;
 static PFNGLCREATESHADERPROC glCreateShader;
+static PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation;
+static PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
+static PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
+static PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
+static PFNGLDELETESHADERPROC glDeleteShader;
+static PFNGLLINKPROGRAMPROC glLinkProgram;
+static PFNGLATTACHSHADERPROC glAttachShader;
+static PFNGLCREATEPROGRAMPROC glCreateProgram;
+static PFNGLCOMPILESHADERPROC glCompileShader;
+static PFNGLSHADERSOURCEPROC glShaderSource;
 
 void
 glLoadExt();

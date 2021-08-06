@@ -7,7 +7,7 @@ glLoadExt()
   glAttachShader                       = (PFNGLATTACHSHADERPROC)glfwGetProcAddress("glAttachShader");
   glBindBuffer                         = (PFNGLBINDBUFFERPROC)glfwGetProcAddress("glBindBuffer");
   glBindVertexArray                    = (PFNGLBINDVERTEXARRAYPROC)glfwGetProcAddress("glBindVertexArray");
-  glBindVertexArrays                   = (PFNGLBINDVERTEXARRAYSPROC)glfwGetProcAddress("glBindVertexArrays");
+  //glBindVertexArrays                   = (PFNGLBINDVERTEXARRAYSPROC)glfwGetProcAddress("glBindVertexArrays");
   glBufferData                         = (PFNGLBUFFERDATAPROC)glfwGetProcAddress("glBufferData");
   glCompileShader                      = (PFNGLCOMPILESHADERPROC)glfwGetProcAddress("glCompileShader");
   glCreateProgram                      = (PFNGLCREATEPROGRAMPROC)glfwGetProcAddress("glCreateProgram");
