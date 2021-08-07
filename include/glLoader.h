@@ -23,7 +23,6 @@ static PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
 static PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation;
 static PFNGLLINKPROGRAMPROC glLinkProgram;
 static PFNGLSHADERSOURCEPROC glShaderSource;
-static PFNGLUSEPROGRAMPROC glUseProgram;
 static PFNGLUNIFORM1FPROC glUniform1f;
 static PFNGLUNIFORM1IPROC glUniform1i;
 static PFNGLUNIFORM2FPROC glUniform2f;

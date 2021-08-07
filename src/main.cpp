@@ -75,7 +75,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "   FragColor = texture(texture, Texcord);\n" //vec4(Texcord.xy, Color.zw);\n"//
 "}\n\0";
 
-void read_shader_file() {
+void read_shader_file(const char* vertexPath, const char* fragmentPath) {
 	const char* vertexCode;
 	const char* fragmentCode;
 	std::ifstream vShaderFile;
@@ -84,15 +84,15 @@ void read_shader_file() {
 	fShaderFile.exceptions(std::ifstream::badbit);
 	vShaderFile.open(vertexPath);
 	fShaderFile.open(fragmentPath);
+	std::stringstream vShaderStream, fShaderStream;
 	vShaderStream << vShaderFile.rdbuf();                               //To be modified
 	fShaderStream << fShaderFile.rdbuf();
-	std::stringstream vShaderStream, fShaderStream;
 	vShaderFile.close();
 	fShaderFile.close();
-	vertexCode = vShaderStream.str();
-	fragmentCode = fShaderStream.str();
-	const GLchar* vertexShaderSource = vertexCode.c_str();
-	const GLchar* fragmentShaderSource = fragmentCode.c_str();
+	vertexCode = vShaderStream.str().c_str();
+	fragmentCode = fShaderStream.str().c_str();
+	const GLchar* vertexShaderSource = vertexCode;
+	const GLchar* fragmentShaderSource = fragmentCode;  // TODO: return shaders sources 
 }
 
 void window_init() {
@@ -115,7 +115,7 @@ void window_init() {
 }
 
 void load_shaders() {
-	read_shader_file();
+	read_shader_file("shader.vert", "shader.frag");
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
