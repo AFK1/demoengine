@@ -5,31 +5,31 @@
 #include <GL/gl.h>
 #include <GL/glext.h>
 
-static PFNGLUSEPROGRAMPROC glUseProgram;
-static PFNGLDELETEPROGRAMPROC glDeleteProgram;
+static PFNGLATTACHSHADERPROC glAttachShader;
+static PFNGLBINDBUFFERPROC glBindBuffer;
+static PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
+static PFNGLBUFFERDATAPROC glBufferData;
+static PFNGLCOMPILESHADERPROC glCompileShader;
+static PFNGLCREATEPROGRAMPROC glCreateProgram;
+static PFNGLCREATESHADERPROC glCreateShader;
 static PFNGLDELETEBUFFERSPROC glDeleteBuffers;
+static PFNGLDELETESHADERPROC glDeleteShader;
+static PFNGLDELETEPROGRAMPROC glDeleteProgram;
 static PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays;
+static PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray;
+static PFNGLGENBUFFERSPROC glGenBuffers;
+static PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
+static PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
+static PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation;
+static PFNGLLINKPROGRAMPROC glLinkProgram;
+static PFNGLSHADERSOURCEPROC glShaderSource;
+static PFNGLUSEPROGRAMPROC glUseProgram;
 static PFNGLUNIFORM1FPROC glUniform1f;
 static PFNGLUNIFORM1IPROC glUniform1i;
 static PFNGLUNIFORM2FPROC glUniform2f;
 static PFNGLUNIFORM4FPROC glUniform4f;
-static PFNGLENABLEVERTEXATTRIBARRAYPROC
-	  glEnableVertexAttribArray;
+static PFNGLUSEPROGRAMPROC glUseProgram;
 static PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer;
-static PFNGLBUFFERDATAPROC glBufferData;
-static PFNGLBINDBUFFERPROC glBindBuffer;
-static PFNGLGENBUFFERSPROC glGenBuffers;
-static PFNGLCREATESHADERPROC glCreateShader;
-static PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation;
-static PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
-static PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
-static PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
-static PFNGLDELETESHADERPROC glDeleteShader;
-static PFNGLLINKPROGRAMPROC glLinkProgram;
-static PFNGLATTACHSHADERPROC glAttachShader;
-static PFNGLCREATEPROGRAMPROC glCreateProgram;
-static PFNGLCOMPILESHADERPROC glCompileShader;
-static PFNGLSHADERSOURCEPROC glShaderSource;
 
 void
 glLoadExt();
