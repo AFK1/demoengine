@@ -7,6 +7,31 @@ struct Farbfeld_header {
 	uint32_t h;
 };
 
+
+//=======================Global init==========================
+GLFWwindow* window;
+GLuint VAO, VBO, IBO;
+
+GLfloat vertices[] =
+{
+	-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, // Upper corner
+	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // Lower left corner
+	0.5f, 0.5f, 0.0f, 1.0f, 1.0f, // Upper corner
+	0.5f, -0.5f, 0.0f, 1.0f, 0.0f // Lower right corner
+};
+GLuint verticesid[] =
+{
+	0,1,2,
+	1,2,3
+};
+
+GLuint shaderProgram;
+unsigned char* image;
+int width, height, numColCh;
+GLuint texture;
+//=============================================================
+
+
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "layout (location = 1) in vec2 aTexcord;\n"
@@ -50,28 +75,47 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "   FragColor = texture(texture, Texcord);\n" //vec4(Texcord.xy, Color.zw);\n"//
 "}\n\0";
 
+void read_shader_file() {
+	const char* vertexCode;
+	const char* fragmentCode;
+	std::ifstream vShaderFile;
+	std::ifstream fShaderFile;
+	vShaderFile.exceptions(std::ifstream::badbit);
+	fShaderFile.exceptions(std::ifstream::badbit);
+	vShaderFile.open(vertexPath);
+	fShaderFile.open(fragmentPath);
+	vShaderStream << vShaderFile.rdbuf();                               //To be modified
+	fShaderStream << fShaderFile.rdbuf();
+	std::stringstream vShaderStream, fShaderStream;
+	vShaderFile.close();
+	fShaderFile.close();
+	vertexCode = vShaderStream.str();
+	fragmentCode = fShaderStream.str();
+	const GLchar* vertexShaderSource = vertexCode.c_str();
+	const GLchar* fragmentShaderSource = fragmentCode.c_str();
+}
 
-
-int main()
-{
+void window_init() {
 	glfwSetTime(0.0f);
 	glfwInit();
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(500, 500, "EBFSWT", NULL, NULL);
+	window = glfwCreateWindow(500, 500, "EBFSWT", NULL, NULL);            //Not to be modified
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
-		return -1;
 	}
 	glfwMakeContextCurrent(window);
 	glLoadExt();
 	glViewport(0, 0, 500, 500);
+}
 
+void load_shaders() {
+	read_shader_file();
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
@@ -80,31 +124,13 @@ int main()
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
 
-	GLuint shaderProgram = glCreateProgram();
+	shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
 	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
 
-	glDeleteShader(vertexShader);
+	glDeleteShader(vertexShader);                                          //Not to be modified (I hope)
 	glDeleteShader(fragmentShader);
-
-
-
-	GLfloat vertices[] =
-	{
-		-0.5f, 0.5f, 0.0f, 0.0f, 1.0f, // Upper corner
-		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // Lower left corner
-		0.5f, 0.5f, 0.0f, 1.0f, 1.0f, // Upper corner
-		0.5f, -0.5f, 0.0f, 1.0f, 0.0f // Lower right corner
-	}; 
-	GLuint verticesid[] =
-	{
-		0,1,2,
-		1,2,3
-	};
-
-	GLuint VAO, VBO, IBO;
-
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -126,18 +152,19 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+}
 
+void load_texture() {
+	image = stbi_load("container.jpg", &width, &height, &numColCh, 0);               //Not to be modified
+}
 
-	GLuint texture;
+void gen_texture() {
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	int width, height, numColCh;
-	unsigned char *image = stbi_load("container.jpg", &width, &height, &numColCh, 0);
-	printf("%d %d \n", width, numColCh);
 	glTexImage2D(GL_TEXTURE_2D, 0, numColCh == 3 ? GL_RGB : GL_RGBA, width, height, 0, numColCh == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, image);
-	
+
 	glGenerateMipmap(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);                                                      //Not to be modifiedn
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -146,22 +173,23 @@ int main()
 
 	stbi_image_free(image);
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
 
+
+int main()
+{
+	window_init();
+	load_shaders();
+	load_texture();
+	gen_texture();
 
 	int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
-	std::cout << glGetError() << std::endl;
 	int Magic = glGetUniformLocation(shaderProgram, "rot");
-	std::cout << glGetError() << std::endl;
 	int Magic2 = glGetUniformLocation(shaderProgram, "rot2");
-	std::cout << glGetError() << std::endl;
 	float i = 0, j = 0;
-	std::cout << glGetError() << std::endl;
 	glUseProgram(shaderProgram);
-	std::cout << glGetError() << std::endl;
 	glEnable(GL_BLEND);
-	std::cout << glGetError() << std::endl;
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
-	std::cout << glGetError() << std::endl;
 	//GL_ONE_MINUS_CONSTANT_COLOR
 	glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
 	float t = 0;
