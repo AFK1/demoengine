@@ -1,4 +1,4 @@
-#include <glLoader.h>
+#include <glLoader.hpp>
 
 void
 glLoadExt()

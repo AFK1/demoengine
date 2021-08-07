@@ -8,9 +8,9 @@ find_package(glfw3 REQUIRED)
 include_directories(include)
 
 add_executable(${PROJECT_NAME}
+src/glLoader.cpp
 src/main.cpp
-src/glLoader.c
-include/glLoader.h
+include/glLoader.hpp
 include/swt.hpp
 include/stb_image.h
 )

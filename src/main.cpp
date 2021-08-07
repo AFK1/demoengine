@@ -1,5 +1,5 @@
 #include <swt.hpp>
-#include <glLoader.h>
+#include <glLoader.hpp>
 
 struct Farbfeld_header {
 	uint64_t magic;
