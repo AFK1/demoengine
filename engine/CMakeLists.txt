@@ -7,7 +7,7 @@ find_package(glfw3 REQUIRED)
 
 include_directories(include)
 
-add_executable(${PROJECT_NAME}
+add_library(${PROJECT_NAME} STATIC
 src/glLoader.cpp
 src/main.cpp
 include/glLoader.hpp
