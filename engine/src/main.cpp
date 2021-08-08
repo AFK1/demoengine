@@ -1,4 +1,5 @@
 #include <swt.hpp>
+#include <stb_image.h>
 #include <glLoader.hpp>
 
 struct Farbfeld_header {
@@ -175,7 +176,7 @@ void gen_texture() {
 }
 
 
-int main()
+int entrypoint()
 {
 	window_init();
 	load_shaders();

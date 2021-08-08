@@ -9,7 +9,9 @@
 #include <sstream>
 #include <iostream>
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 #include <stdint.h>
+
+int
+entrypoint();
 
 #endif // __SWT_H_
