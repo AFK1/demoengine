@@ -79,29 +79,40 @@ const char* fragmentShaderSource = "#version 330 core\n"
 void read_shader_file(const char* vertexPath, const char* fragmentPath) {
 	const char* vertexCode;
 	const char* fragmentCode;
+	std::cout << "1, ";
 	std::ifstream vShaderFile;
 	std::ifstream fShaderFile;
+	std::cout << "2, ";
 	vShaderFile.exceptions(std::ifstream::badbit);
 	fShaderFile.exceptions(std::ifstream::badbit);
+	std::cout << "3, ";
 	vShaderFile.open(vertexPath);
 	fShaderFile.open(fragmentPath);
+	std::cout << "4, ";
 	std::stringstream vShaderStream, fShaderStream;
 	vShaderStream << vShaderFile.rdbuf();                               //To be modified
 	fShaderStream << fShaderFile.rdbuf();
 	vShaderFile.close();
 	fShaderFile.close();
+	std::cout << "5, ";
 	vertexCode = vShaderStream.str().c_str();
 	fragmentCode = fShaderStream.str().c_str();
+	std::cout << "6, ";
 	const GLchar* vertexShaderSource = vertexCode;
 	const GLchar* fragmentShaderSource = fragmentCode;  // TODO: return shaders sources 
+	std::cout << "7.\n";
 }
 
 void window_init() {
 	glfwSetTime(0.0f);
 	glfwInit();
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
 	window = glfwCreateWindow(500, 500, "EBFSWT", NULL, NULL);            //Not to be modified
 	if (window == NULL)
@@ -115,9 +126,13 @@ void window_init() {
 }
 
 void load_shaders() {
+	std::cout << "\tReading shaders: ";
 	read_shader_file("shader.vert", "shader.frag");
+	std::cout << "\tCreating vertex shader\n" << glCreateShader << std::endl;
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	std::cout << "\tLinking vertex shader\n";
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	std::cout << "\tCompiling vertex shader\n";
 	glCompileShader(vertexShader);
 
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -178,9 +193,13 @@ void gen_texture() {
 
 int entrypoint()
 {
+	std::cout << "Window init\n";
 	window_init();
+	std::cout << "Load Shaders\n";
 	load_shaders();
+	std::cout << "Load Texture\n";
 	load_texture();
+	std::cout << "Generate texture\n";
 	gen_texture();
 
 	int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");

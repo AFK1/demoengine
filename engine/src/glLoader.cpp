@@ -1,11 +1,14 @@
 #include <glLoader.hpp>
+#include <iostream>
 
 void
 glLoadExt()
 {
 
   glAttachShader                       = (PFNGLATTACHSHADERPROC)glfwGetProcAddress("glAttachShader");
+  std::cout << glAttachShader << std::endl; 
   glBindBuffer                         = (PFNGLBINDBUFFERPROC)glfwGetProcAddress("glBindBuffer");
+  std::cout << glBindBuffer << std::endl; 
   glBindVertexArray                    = (PFNGLBINDVERTEXARRAYPROC)glfwGetProcAddress("glBindVertexArray");
   //glBindVertexArrays                   = (PFNGLBINDVERTEXARRAYSPROC)glfwGetProcAddress("glBindVertexArrays");
   glBufferData                         = (PFNGLBUFFERDATAPROC)glfwGetProcAddress("glBufferData");
