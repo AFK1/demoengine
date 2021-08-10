@@ -8,9 +8,8 @@ find_package(glfw3 REQUIRED)
 include_directories(include)
 
 add_library(${PROJECT_NAME} STATIC
-src/glLoader.cpp
 src/main.cpp
-include/glLoader.hpp
+src/glad.c
 include/swt.hpp
 include/stb_image.h
 )

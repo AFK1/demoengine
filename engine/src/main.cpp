@@ -1,6 +1,5 @@
 #include <swt.hpp>
 #include <stb_image.h>
-#include <glLoader.hpp>
 
 struct Farbfeld_header {
 	uint64_t magic;
@@ -107,12 +106,8 @@ void window_init() {
 	glfwSetTime(0.0f);
 	glfwInit();
 
-	glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
 	window = glfwCreateWindow(500, 500, "EBFSWT", NULL, NULL);            //Not to be modified
 	if (window == NULL)
@@ -121,7 +116,7 @@ void window_init() {
 		glfwTerminate();
 	}
 	glfwMakeContextCurrent(window);
-	glLoadExt();
+	gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
 	glViewport(0, 0, 500, 500);
 }
 
