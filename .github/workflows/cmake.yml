@@ -21,9 +21,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libgl1-mesa-dev
-        deb http://ppa.launchpad.net/keithw/glfw3/ubuntu trusty main
-        sudo apt-get update
-        sudo apt-get install libglfw3
         sudo apt-get install libglfw3-dev
 
     - name: Configure CMake
