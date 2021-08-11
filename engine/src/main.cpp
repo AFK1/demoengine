@@ -1,12 +1,6 @@
 #include <swt.hpp>
 #include <stb_image.h>
 
-struct Farbfeld_header {
-	uint64_t magic;
-	uint32_t w;
-	uint32_t h;
-};
-
 
 //=======================Global init==========================
 GLFWwindow* window;
