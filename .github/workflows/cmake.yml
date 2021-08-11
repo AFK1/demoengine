@@ -20,7 +20,7 @@ jobs:
     - name: Install all dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install libgl1-mesa-dev 
+        sudo apt-get install libgl1-mesa-dev glfw3
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
