@@ -1,7 +1,6 @@
 #include <swt.hpp>
 #include <stb_image.h>
 
-
 //=======================Global init==========================
 GLFWwindow* window;
 GLuint VAO, VBO, IBO;
