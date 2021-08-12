@@ -222,7 +222,7 @@ int entrypoint()
     {
       char * buf = (char *) malloc(sizeof(char)*150);
       sprintf(buf, 
-          "magic: %s, w: %lu, h: %lu", 
+          "magic: %s, w: %u, h: %u", 
           tex->magicVal, 
           tex->width, 
           tex->height);
