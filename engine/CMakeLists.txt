@@ -11,8 +11,10 @@ add_library(${PROJECT_NAME} STATIC
 src/main.cpp
 src/glad.c
 src/log.cpp
+src/farbfeld.cpp
 include/swt.hpp
 include/stb_image.h
+include/farbfeld.hpp
 )
 
 

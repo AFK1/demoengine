@@ -11,6 +11,7 @@
 #include <iostream>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stdint.h>
+#include <stdio.h>
 
 int
 entrypoint();

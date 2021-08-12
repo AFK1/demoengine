@@ -1,6 +1,7 @@
 #include <swt.hpp>
 #include <stb_image.h>
 #include <log.hpp>
+#include <farbfeld.hpp>
 
 int error = 0;
 Log * logger;
@@ -215,6 +216,22 @@ int entrypoint()
   logger->print(LogType::warn, 	     "Warn test"    );
   logger->print(LogType::error,      "Error test"   );
   logger->print(LogType::critical,   "Critical test");
+
+  struct Farbfeld* tex = readFarbfeld("test.ff");
+  if (tex != nullptr)
+    {
+      char * buf = (char *) malloc(sizeof(char)*150);
+      sprintf(buf, 
+          "magic: %s, w: %lu, h: %lu", 
+          tex->magicVal, 
+          tex->width, 
+          tex->height);
+      logger->print(LogType::info, buf);
+    } else {
+      logger->print(LogType::error, 
+	  "Put Farbfeld texture \"test.ff\""
+	  " into executing directory(not next to executable)");
+    };
 
   int vertexColorLocation = glGetUniformLocation(shaderProgram, 
       "Color");
