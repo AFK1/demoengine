@@ -2,6 +2,9 @@
 #include <stb_image.h>
 #include <log.hpp>
 
+int error = 0;
+Log * logger;
+
 //=======================Global init==========================
 GLFWwindow* window;
 GLuint VAO, VBO, IBO;
@@ -99,7 +102,7 @@ void window_init() {
   window = glfwCreateWindow(500, 500, "EBFSWT", NULL, NULL);            //Not to be modified
   if (window == NULL)
   {
-    std::cout << "Failed to create GLFW window" << std::endl;
+    logger->print(LogType::critical, "Failed to create GLFW window");
     glfwTerminate();
   }
   glfwMakeContextCurrent(window);
@@ -122,8 +125,14 @@ void load_shaders() {
   glAttachShader(shaderProgram, fragmentShader);
   glLinkProgram(shaderProgram);
 
+  glGetError(); // Remove errors
+
   glDeleteShader(vertexShader);                                          //Not to be modified (I hope)
   glDeleteShader(fragmentShader);
+  if ((error = glGetError()) != 0)
+  {
+    logger->print(LogType::warn, "Can't delete unused shaders");
+  };
 
   glGenVertexArrays(1, &VAO);
   glBindVertexArray(VAO);
@@ -195,13 +204,17 @@ void gen_texture() {
 
 int entrypoint()
 {
-  Log * log = Log::getInstance();
-  log->set_error_type(LogType::warn);
+  logger = Log::getInstance();
+  logger->set_error_type(LogType::info);
   window_init();
   load_shaders();
   load_texture();
   gen_texture();
-  log->print(LogType::info, "Test");
+  logger->print(LogType::info,       "Info test"    );
+  logger->print(LogType::log,        "Log test"     );
+  logger->print(LogType::warn, 	     "Warn test"    );
+  logger->print(LogType::error,      "Error test"   );
+  logger->print(LogType::critical,   "Critical test");
 
   int vertexColorLocation = glGetUniformLocation(shaderProgram, 
       "Color");

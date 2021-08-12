@@ -18,8 +18,8 @@ Log::set_error_type(LogType _type)
 void
 Log::print(LogType _type, const char * _log)
 {
-  if (_error_type >= _type)
-    std::cout << "Log::" << LogName[(int)_error_type] << ": " << _log << std::endl;
+  if ((int)_error_type <= (int)_type)
+    std::cout << "Log::" << LogName[(int)_type] << ": " << _log << std::endl;
 }
 
 Log::Log() {};
