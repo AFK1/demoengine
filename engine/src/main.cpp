@@ -1,5 +1,6 @@
 #include <swt.hpp>
 #include <stb_image.h>
+#include <log.hpp>
 
 
 //=======================Global init==========================
@@ -66,7 +67,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
 "void main()\n"
 "{\n"
-"   FragColor = texture(texture, Texcord);\n" //vec4(Texcord.xy, Color.zw);\n"//
+"   FragColor = Color;\n"//texture(texture, Texcord);\n" //vec4(Texcord.xy, Color.zw);\n"//
 "}\n\0";
 
 void read_shader_file(const char* vertexPath, const char* fragmentPath) {
@@ -171,10 +172,13 @@ void gen_texture() {
 
 int entrypoint()
 {
+	Log * log = Log::getInstance();
+	log->set_error_type(LogType::warn);
 	window_init();
 	load_shaders();
 	load_texture();
 	gen_texture();
+	log->print("Test");
 
 	int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
 	int Magic = glGetUniformLocation(shaderProgram, "rot");
