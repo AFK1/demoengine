@@ -11,6 +11,14 @@ enum class LogType {
   critical,
 };
 
+static const char * LogName[] = {
+  "Info",
+  "Log",
+  "Warn",
+  "Error",
+  "Critical"
+};
+
 class Log {
 public:
   static Log* getInstance();
@@ -18,7 +26,7 @@ public:
   void operator=(Log const&) = delete;
   
   void set_error_type(LogType _type); 
-  void print(const char * _log);
+  void print(LogType _type, const char * _log);
 
 private:
   static Log* _instance;
