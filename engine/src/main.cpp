@@ -2,7 +2,6 @@
 #include <stb_image.h>
 #include <log.hpp>
 
-
 //=======================Global init==========================
 GLFWwindow* window;
 GLuint VAO, VBO, IBO;
