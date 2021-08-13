@@ -2,7 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <log.hpp>
+#ifdef _WIN32
+#include <winsock.h>
+#else
 #include <arpa/inet.h>
+#endif
 #include <string.h>
 
 struct Farbfeld*

@@ -17,6 +17,11 @@ include/stb_image.h
 include/farbfeld.hpp
 )
 
+if(WIN32)
+target_link_libraries(${PROJECT_NAME}
+Ws2_32
+)
+endif()
 
 target_link_libraries(${PROJECT_NAME}
 glfw

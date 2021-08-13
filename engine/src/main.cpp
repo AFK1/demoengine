@@ -12,10 +12,10 @@ GLuint VAO, VBO, IBO;
 
 GLfloat vertices[] =
 {
-  -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, // Upper corner
-  -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // Lower left corner
-  0.5f, 0.5f, 0.0f, 1.0f, 1.0f, // Upper corner
-  0.5f, -0.5f, 0.0f, 1.0f, 0.0f // Lower right corner
+  -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // Upper corner
+  -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // Lower left corner
+  1.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Upper corner
+  1.0f, -1.0f, 0.0f, 1.0f, 0.0f // Lower right corner
 };
 GLuint verticesid[] =
 {
@@ -33,35 +33,15 @@ GLuint texture;
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "layout (location = 1) in vec2 aTexcord;\n"
-"uniform vec4 rot; \n"
-"uniform float rot2; \n"
+"uniform vec2 Pos; \n"
 "out vec2 Texcord;\n"
 "void main()\n"
 "{\n"
-"   float x = aPos.x*rot.x/2+aPos.x;\n"
-"   float y = aPos.y*rot.y/2+aPos.y;\n"
-"   float z = aPos.z*rot.z/2+aPos.z;\n"
-"   float cs = cos(rot2/57.6),sn = sin(rot2/57.6);\n"  
 "   Texcord = aTexcord;\n"
-"   if (rot2 <= 360){\n"
-"   gl_Position = vec4(x*cs+z*sn, "
-"             y, "
-"             z*-1*sn+z*cs, "
-"  1.0);\n"
-"  }else{\n"
-"   if (rot2 <= 720){\n"
-"   gl_Position = vec4(x*cs+y*-1*sn, "
-"             x*sn+y*cs, "
-"             z, "
-"  1.0);\n"
-"  }\n"
-"   else {\n"
-"   gl_Position = vec4(x, "
-"             y*cs+z*-1*sn, "
-"             y*sn+z*cs, "
-"  1.0);\n"
-"  }}\n"
-//"  gl_Position = vec4(gl_Position.x + sin(gl_Position.y*400) ,gl_Position.yzw);\n"
+"   gl_Position = vec4((aPos.x/12)-1.0f+(1.0/12)+(Pos.y/6),"
+"                      (aPos.y/12)-1.0f+(1.0/12)+(Pos.x/6),"
+"                      0.0f,1.0f);\n"
+//"   gl_Position = vec4(aPos.xyz,1.0f);\n"
 "}\0";
 const char* fragmentShaderSource = "#version 330 core\n"
 "in vec2 Texcord;\n"
@@ -235,73 +215,35 @@ int entrypoint()
 
   int vertexColorLocation = glGetUniformLocation(shaderProgram, 
       "Color");
-  int Magic = glGetUniformLocation(shaderProgram, "rot");
-  int Magic2 = glGetUniformLocation(shaderProgram, "rot2");
-  float i = 0, j = 0;
+  int smeshenie = glGetUniformLocation(shaderProgram,
+      "Pos");
   glUseProgram(shaderProgram);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
   //GL_ONE_MINUS_CONSTANT_COLOR
   glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
-  float t = 0;
+
   while (!glfwWindowShouldClose(window))
   {
-    i = (i + (glfwGetTime()-t)*40);
-    j = (j + (glfwGetTime()-t)*80);
-    if (i > 360) 
-      {
-        i -= 360;
-      }; 
-    if (j > 1080) 
-      { 
-        j -= 1080;
+  glClear(GL_COLOR_BUFFER_BIT);
+      for (float i = 0; i < 11; i++) {
+          for (float j = 0; j < 11; j++) {
+              glUniform2f(smeshenie,i,j);
+              glUniform4f(vertexColorLocation,
+                  0.0f,
+                  1.0f,
+                  0.0f,
+                  1.0f);
+
+              glBindTexture(GL_TEXTURE_2D, texture);
+              glBindVertexArray(VAO);
+              glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+              glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+              
+          }
       }
-    t = glfwGetTime();
-    glUniform4f(vertexColorLocation, 
-        0.0f, 
-        1.0f, 
-        0.0f, 
-        1.0f);
-    glUniform4f(Magic, 
-        sin(i / 57.6), 
-        cos(i / 57.6), 
-        1.0f, 
-        1.0f);
-    glUniform1f(Magic2, j);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+    glUniform2f(smeshenie, 0.0f, 1.0f);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glUniform4f(vertexColorLocation, 1.0f, 0.0f, 0.0f, 1.0f);
-    i = (i + 240);
-    if (i > 360) 
-      { 
-        i -= 360; 
-      };
-    glUniform4f(Magic, 
-        sin(i / 57.6), 
-        cos(i / 57.6), 
-        1.0f, 
-        1.0f);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-    glUniform4f(vertexColorLocation, 0.0f, 0.0f, 1.0f, 1.0f);
-    i = (i + 240);
-    if (i > 360) 
-      { 
-        i -= 360; 
-      };
-    glUniform4f(Magic, 
-        sin(i / 57.6), 
-        cos(i / 57.6), 
-        1.0f, 
-        1.0f); 
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    i = (i + 240);if (i > 360) { i -= 360; };
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
