@@ -2,6 +2,7 @@
 #include <stb_image.h>
 #include <log.hpp>
 #include <farbfeld.hpp>
+#include <render.cpp>
 
 int error = 0;
 Log * logger;
@@ -72,7 +73,6 @@ void read_shader_file(const char* vertexPath, const char* fragmentPath) {
   const GLchar* vertexShaderSource = vertexCode;
   const GLchar* fragmentShaderSource = fragmentCode;  // TODO: return shaders sources 
 }
-
 void window_init() {
   glfwSetTime(0.0f);
   glfwInit();
@@ -91,96 +91,8 @@ void window_init() {
   glViewport(0, 0, 500, 500);
 }
 
-void load_shaders() {
-  read_shader_file("shader.vert", "shader.frag");
-  GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-  glCompileShader(vertexShader);
 
-  GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-  glCompileShader(fragmentShader);
 
-  shaderProgram = glCreateProgram();
-  glAttachShader(shaderProgram, vertexShader);
-  glAttachShader(shaderProgram, fragmentShader);
-  glLinkProgram(shaderProgram);
-
-  glGetError(); // Remove errors
-
-  glDeleteShader(vertexShader);                                          //Not to be modified (I hope)
-  glDeleteShader(fragmentShader);
-  if ((error = glGetError()) != 0)
-  {
-    logger->print(LogType::warn, "Can't delete unused shaders");
-  };
-
-  glGenVertexArrays(1, &VAO);
-  glBindVertexArray(VAO);
-
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER,
-      sizeof(vertices),
-      vertices, 
-      GL_STATIC_DRAW);
-
-  glGenBuffers(1, &IBO);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-      sizeof(verticesid),
-      verticesid,
-      GL_STATIC_DRAW);
-
-  glVertexAttribPointer(0, 
-      3, 
-      GL_FLOAT, 
-      GL_FALSE, 
-      5 * sizeof(float),
-      (void*)0);
-  glEnableVertexAttribArray(0);
-
-  glVertexAttribPointer(1,
-      2, 
-      GL_FLOAT, 
-      GL_FALSE, 
-      5 * sizeof(float), 
-      (void*)(3 * sizeof(GLfloat)));
-  glEnableVertexAttribArray(1);
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
-}
-
-void load_texture() {
-  image = stbi_load("container.jpg", &width, &height, &numColCh, 0);               //Not to be modified
-}
-
-void gen_texture() {
-  glGenTextures(1, &texture);
-  glBindTexture(GL_TEXTURE_2D, texture);
-  glTexImage2D(GL_TEXTURE_2D, 
-      0, 
-      numColCh == 3 ? GL_RGB : GL_RGBA, 
-      width, 
-      height, 
-      0, 
-      numColCh == 3 ? GL_RGB : GL_RGBA, 
-      GL_UNSIGNED_BYTE, 
-      image);
-
-  glGenerateMipmap(GL_TEXTURE_2D);
-  glBindTexture(GL_TEXTURE_2D, 0);                                                      //Not to be modifiedn
-
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-  stbi_image_free(image);
-  glBindTexture(GL_TEXTURE_2D, 0);
-}
 
 
 int entrypoint()
@@ -188,9 +100,11 @@ int entrypoint()
   logger = Log::getInstance();
   logger->set_error_type(LogType::info);
   window_init();
+  read_shader_file("shader.vert", "shader.frag");
   load_shaders();
   load_texture();
   gen_texture();
+  stbi_image_free(image);
   logger->print(LogType::info,       "Info test"    );
   logger->print(LogType::log,        "Log test"     );
   logger->print(LogType::warn, 	     "Warn test"    );
@@ -213,37 +127,16 @@ int entrypoint()
 	  " into executing directory(not next to executable)");
     };
 
-  int vertexColorLocation = glGetUniformLocation(shaderProgram, 
-      "Color");
-  int smeshenie = glGetUniformLocation(shaderProgram,
-      "Pos");
+  
   glUseProgram(shaderProgram);
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
-  //GL_ONE_MINUS_CONSTANT_COLOR
-  glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
 
   while (!glfwWindowShouldClose(window))
   {
-  glClear(GL_COLOR_BUFFER_BIT);
       for (float i = 0; i < 11; i++) {
           for (float j = 0; j < 11; j++) {
-              glUniform2f(smeshenie,i,j);
-              glUniform4f(vertexColorLocation,
-                  0.0f,
-                  1.0f,
-                  0.0f,
-                  1.0f);
-
-              glBindTexture(GL_TEXTURE_2D, texture);
-              glBindVertexArray(VAO);
-              glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-              glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
               
           }
       }
-    glUniform2f(smeshenie, 0.0f, 1.0f);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glfwSwapBuffers(window);
     glfwPollEvents();
   }

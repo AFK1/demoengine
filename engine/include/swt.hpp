@@ -1,7 +1,6 @@
 #ifndef __SWT_H_
 #define __SWT_H_
 
-#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>

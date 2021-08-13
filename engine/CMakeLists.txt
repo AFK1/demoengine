@@ -12,6 +12,7 @@ src/main.cpp
 src/glad.c
 src/log.cpp
 src/farbfeld.cpp
+src/render.cpp
 include/swt.hpp
 include/stb_image.h
 include/farbfeld.hpp
