@@ -2,7 +2,6 @@
 #include <stb_image.h>
 #include <log.hpp>
 #include <farbfeld.hpp>
-#include <render.cpp>
 
 int error = 0;
 Log * logger;
@@ -39,8 +38,8 @@ const char* vertexShaderSource = "#version 330 core\n"
 "void main()\n"
 "{\n"
 "   Texcord = aTexcord;\n"
-"   gl_Position = vec4((aPos.x/12)-1.0f+(1.0/12)+(Pos.y/6),"
-"                      (aPos.y/12)-1.0f+(1.0/12)+(Pos.x/6),"
+"   gl_Position = vec4((aPos.x/12)-1.0f+(1.0/12)+(Pos.x/6),"
+"                      (aPos.y/12)-1.0f+(1.0/12)+(Pos.y/6),"
 "                      0.0f,1.0f);\n"
 //"   gl_Position = vec4(aPos.xyz,1.0f);\n"
 "}\0";
@@ -134,7 +133,7 @@ int entrypoint()
   {
       for (float i = 0; i < 11; i++) {
           for (float j = 0; j < 11; j++) {
-              
+              render.draw
           }
       }
     glfwSwapBuffers(window);
