@@ -91,23 +91,21 @@ public:
 
 		if ((error = glGetError()) != 0)
 		{
-			logger->print(LogType::error, "Can't load shader");
+			print(LogType::error, "Can't load shader");
 		};
 
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 		if ((error = glGetError()) != 0)
 		{
-			logger->print(LogType::warn, "Can't delete unused shaders");
+			print(LogType::warn, "Can't delete unused shaders");
 		};
 	}
 	Shaders(GLuint _shaderProgram) {
-		logger = Log::getInstance();
 		shaderProgram = _shaderProgram;
 	}
 private:
 	GLuint shaderProgram;
-	Log* logger;
 };
 	
 class Textures
@@ -145,18 +143,15 @@ public:
 		return texture;
 	}
 	Textures(GLuint _shaderProgram) {
-		logger = Log::getInstance();
 		shaderProgram = _shaderProgram;
 	}
 private:
 	GLuint shaderProgram;
-	Log* logger;
 };
 
 
 int main() {
 	GLuint shaderProgram = glCreateProgram();
-	Log* logger = Log::getInstance();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
 	//GL_ONE_MINUS_CONSTANT_COLOR

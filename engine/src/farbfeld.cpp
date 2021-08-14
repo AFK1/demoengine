@@ -12,12 +12,11 @@
 struct Farbfeld*
 readFarbfeld(const char * _path)
 {
-  Log * logger = Log::getInstance();
   struct Farbfeld * res = (struct Farbfeld*) malloc(sizeof(struct Farbfeld));
   FILE * f = fopen(_path, "r");
   if (f == nullptr)
     {
-      logger->print(LogType::error, "Can't open texture");
+      print(LogType::error, "Can't open texture");
       return nullptr;
     };
   size_t readed = 0;
@@ -28,7 +27,7 @@ readFarbfeld(const char * _path)
 
   if (fSize < sizeof(struct Farbfeld))
     {
-      logger->print(LogType::error, "Empty texture");
+      print(LogType::error, "Empty texture");
       return nullptr;
     };
 
@@ -36,7 +35,7 @@ readFarbfeld(const char * _path)
   readed = fread(head, 1, sizeof(struct Farbfeld)-sizeof(struct Rgba *), f);
   if (readed != sizeof(struct Farbfeld)-sizeof(struct Rgba *))
     {
-      logger->print(LogType::error, "Can't read texture");
+      print(LogType::error, "Can't read texture");
       return nullptr;
     };
   memcpy(res->magicVal, head, 8);
@@ -61,7 +60,7 @@ readFarbfeld(const char * _path)
   readed = fread(res->image, 1, sizeof(struct Rgba)*res->width*res->height, f);
   if (readed != sizeof(struct Rgba)*res->width*res->height)
     {
-      logger->print(LogType::error, "Texture size error");
+      print(LogType::error, "Texture size error");
       return nullptr;
     };
 
