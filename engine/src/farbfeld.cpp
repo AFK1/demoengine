@@ -48,10 +48,10 @@ readFarbfeld(const char * _path)
 
   if (byte2farsize(fSize) != res->width*res->height)
     {
-      logger->print(LogType::error, "Texture header does not match");
+      print(LogType::error, "Texture header does not match");
       char * buf = (char *) malloc(sizeof(char)*150);
       sprintf(buf, "sz of texture: %ld; in header: %lu", byte2farsize(fSize), res->width*res->height);
-      logger->print(LogType::info, buf);
+      print(LogType::info, buf);
       return nullptr;
     };
 #endif

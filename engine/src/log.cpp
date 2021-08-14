@@ -1,6 +1,17 @@
 #include <log.hpp>
 #include <iostream>
 
+/*!
+ * \brief Log types names
+ */
+const char * LogName[] = {
+  "Info",
+  "Log",
+  "Warn",
+  "Error",
+  "Critical"
+};
+
 void
 set_error_type(LogType _type) 
 {
