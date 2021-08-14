@@ -22,7 +22,6 @@ public:
 	Shaders(GLuint _shaderProgram);
 private:
 	GLuint shaderProgram;
-	Log* logger;
 };
 
 class Textures
@@ -36,5 +35,4 @@ public:
 	Textures(GLuint _shaderProgram);
 private:
 	GLuint shaderProgram;
-	Log* logger;
 };

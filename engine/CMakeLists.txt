@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 
-project(ebfswt)
+project(ebfswt) 
 
 find_package(OpenGL REQUIRED)
 find_package(glfw3 REQUIRED)

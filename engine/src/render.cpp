@@ -82,19 +82,18 @@ int Shaders::load(const char * vertexShaderSource, const char * fragmentShaderSo
 
 	if ((error = glGetError()) != 0)
 	{
-		logger->print(LogType::error, "Can't load shader");
+		print(LogType::error, "Can't load shader");
 	};
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 	if ((error = glGetError()) != 0)
 	{
-		logger->print(LogType::warn, "Can't delete unused shaders");
+		print(LogType::warn, "Can't delete unused shaders");
 	};
 	return 0;
 }
 Shaders::Shaders(GLuint _shaderProgram) {
-	Log* logger = Log::getInstance();
 	GLuint shaderProgram = _shaderProgram;
 	int error = 0;
 }
@@ -136,7 +135,6 @@ Textures::Textures(GLuint _shaderProgram) {
 }
 
 int init() {
-	Log* logger = Log::getInstance();
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
 	//GL_ONE_MINUS_CONSTANT_COLOR
