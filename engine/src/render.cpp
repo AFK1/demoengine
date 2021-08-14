@@ -48,6 +48,7 @@ public:
 	}
 	int clear() {
 		glClear(GL_COLOR_BUFFER_BIT);
+		return 0;
 	}
 	int sqrt(float x, float y, GLuint VAO, GLuint IBO) {
 		glUniform2f(smeshenie, x, y);
@@ -59,6 +60,7 @@ public:
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		return 0;
 	}
 
 	Draw(GLuint _shaderProgram) {
@@ -76,7 +78,7 @@ class Shaders
 {
 public:
 	int error = 0;
-	int load(const GLchar const*& vertexShaderSource, const GLchar const*& fragmentShaderSource) {
+	int load(const char * vertexShaderSource, const char * fragmentShaderSource) {
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 		glCompileShader(vertexShader);
@@ -100,6 +102,7 @@ public:
 		{
 			print(LogType::warn, "Can't delete unused shaders");
 		};
+		return 0;
 	}
 	Shaders(GLuint _shaderProgram) {
 		shaderProgram = _shaderProgram;
