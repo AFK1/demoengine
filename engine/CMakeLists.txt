@@ -16,6 +16,7 @@ src/render.cpp
 include/swt.hpp
 include/stb_image.h
 include/farbfeld.hpp
+include/render.hpp
 )
 
 if(WIN32)

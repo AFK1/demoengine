@@ -2,32 +2,11 @@
 #include <stb_image.h>
 #include <log.hpp>
 #include <farbfeld.hpp>
+#include <render.hpp>
 
 int error = 0;
 Log * logger;
 
-//=======================Global init==========================
-GLFWwindow* window;
-GLuint VAO, VBO, IBO;
-
-GLfloat vertices[] =
-{
-  -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // Upper corner
-  -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // Lower left corner
-  1.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Upper corner
-  1.0f, -1.0f, 0.0f, 1.0f, 0.0f // Lower right corner
-};
-GLuint verticesid[] =
-{
-  0,1,2,
-  1,2,3
-};
-
-GLuint shaderProgram;
-unsigned char* image;
-int width, height, numColCh;
-GLuint texture;
-//=============================================================
 
 
 const char* vertexShaderSource = "#version 330 core\n"
@@ -72,7 +51,8 @@ void read_shader_file(const char* vertexPath, const char* fragmentPath) {
   const GLchar* vertexShaderSource = vertexCode;
   const GLchar* fragmentShaderSource = fragmentCode;  // TODO: return shaders sources 
 }
-void window_init() {
+
+void window_init(GLFWwindow* window) {
   glfwSetTime(0.0f);
   glfwInit();
 
@@ -90,20 +70,34 @@ void window_init() {
   glViewport(0, 0, 500, 500);
 }
 
-
-
-
-
 int entrypoint()
 {
+  GLuint shaderProgram = glCreateProgram();
+  GLFWwindow* window;
+  GLfloat vertices[] ={
+      -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // Upper corner
+      -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // Lower left corner
+      1.0f, 1.0f, 0.0f, 1.0f, 1.0f, // Upper corner
+      1.0f, -1.0f, 0.0f, 1.0f, 0.0f // Lower right corner
+    };
+    GLuint verticesid[] =
+    {
+      0,1,2,
+      1,2,3
+    };
+
+  Draw* draw = new Draw(shaderProgram);
+  Shaders* shaders = new Shaders(shaderProgram);
+  Textures* textures = new Textures(shaderProgram);
   logger = Log::getInstance();
   logger->set_error_type(LogType::info);
-  window_init();
+  window_init(window);
   read_shader_file("shader.vert", "shader.frag");
-  load_shaders();
-  load_texture();
-  gen_texture();
-  stbi_image_free(image);
+
+  shaders->load(vertexShaderSource, fragmentShaderSource);
+  GLuint VAO, VBO, IBO = draw->create_obj(vertices, verticesid);
+
+  //stbi_image_free(image);
   logger->print(LogType::info,       "Info test"    );
   logger->print(LogType::log,        "Log test"     );
   logger->print(LogType::warn, 	     "Warn test"    );
@@ -133,9 +127,10 @@ int entrypoint()
   {
       for (float i = 0; i < 11; i++) {
           for (float j = 0; j < 11; j++) {
-              render.draw
+              draw->rect(i, j, VAO, IBO);
           }
       }
+      draw->clear();
     glfwSwapBuffers(window);
     glfwPollEvents();
   }

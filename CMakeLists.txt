@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
+
 project(swtebf_all)
 
 option(BUILD_ENGINE "Build engine sources" ON)
