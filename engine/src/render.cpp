@@ -129,7 +129,6 @@ int Textures::generate(unsigned char* image, int width, int height, int nmc) {
 	return texture;
 }
 Textures::Textures(GLuint _shaderProgram) {
-	Log *logger = Log::getInstance();
 	GLuint shaderProgram = _shaderProgram;
 	int error = 0;
 }

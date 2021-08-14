@@ -1,5 +1,7 @@
 #include <farbfeld.hpp>
 #include <render.hpp>
+#include <swt.hpp>
+#include <log.hpp>
 
 int error = 0;
 
@@ -95,8 +97,7 @@ int entrypoint()
   Draw* draw = new Draw(shaderProgram);
   Shaders* shaders = new Shaders(shaderProgram);
   Textures* textures = new Textures(shaderProgram);
-  logger = Log::getInstance();
-  logger->set_error_type(LogType::info);
+  set_error_type(LogType::info);
   window_init(window);
   read_shader_file("shader.vert", "shader.frag");
 
@@ -104,11 +105,11 @@ int entrypoint()
   GLuint VAO, VBO, IBO = draw->create_obj(vertices, verticesid);
 
   //stbi_image_free(image);
-  logger->print(LogType::info,       "Info test"    );
-  logger->print(LogType::log,        "Log test"     );
-  logger->print(LogType::warn, 	     "Warn test"    );
-  logger->print(LogType::error,      "Error test"   );
-  logger->print(LogType::critical,   "Critical test");
+  print(LogType::info,       "Info test"    );
+  print(LogType::log,        "Log test"     );
+  print(LogType::warn, 	     "Warn test"    );
+  print(LogType::error,      "Error test"   );
+  print(LogType::critical,   "Critical test");
 
   struct Farbfeld *tex = readFarbfeld("test.ff");
   if (tex != nullptr) {
