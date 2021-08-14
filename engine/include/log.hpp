@@ -19,20 +19,12 @@ static const char * LogName[] = {
   "Critical"
 };
 
-class Log {
-public:
-  static Log* getInstance();
-  Log(Log const&) = delete;
-  void operator=(Log const&) = delete;
-  
-  void set_error_type(LogType _type); 
-  void print(LogType _type, const char * _log);
+static LogType current_type = LogType::warn;
 
-private:
-  static Log* _instance;
-  Log();
+void
+print(LogType _type, const char * _log);
 
-  LogType _error_type;
-};
+void
+set_error_type(LogType _type);
 
 #endif // SWT__LOG_H
