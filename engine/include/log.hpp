@@ -3,10 +3,6 @@
 
 #include <swt.hpp>
 
-/*!
- * \brief Current logging type
- */
-static LogType current_type = LogType::warn; 
 
 /*!
  * \brief Logging limiters
@@ -21,15 +17,11 @@ enum class LogType {
   critical,
 };
 
-static const char * LogName[] = {
-  "Info",
-  "Log",
-  "Warn",
-  "Error",
-  "Critical"
-};
 
-static LogType current_type = LogType::warn;
+/*!
+ * \brief Current logging type
+ */
+static LogType current_type = LogType::warn; 
 
 /*!
  * \brief Tries to print log if current_type highter than _type
