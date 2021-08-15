@@ -4,7 +4,7 @@
 #include <render.hpp>
 
 
-int Draw::create_obj(const void* vertices, const void* verticesid) {
+struct arr_buf * Draw::create_obj(const void* vertices, const void* verticesid){
 
 	GLuint VAO, VBO, IBO;
 	glGenVertexArrays(1, &VAO);
@@ -43,7 +43,14 @@ int Draw::create_obj(const void* vertices, const void* verticesid) {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-	return VAO, VBO, IBO;
+
+	struct arr_buf* arr = (struct arr_buf*)malloc(sizeof(struct arr_buf));
+
+	arr->vao = VAO;
+	arr->vbo = VBO;
+	arr->ibo = IBO;
+
+	return arr;
 }
 int Draw::clear() {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -51,17 +58,21 @@ int Draw::clear() {
 }
 int Draw::rect(float x, float y, GLuint VAO, GLuint IBO) {
 	glUniform2f(smeshenie, x, y);
-	glUniform4f(vertexColorLocation,
-		0.0f,
-		1.0f,
-		0.0f,
-		1.0f);
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 	return 0;
 }
+int Draw::color(float r, float g, float b, float a) {
+	glUniform4f(vertexColorLocation,
+			r,
+			g,
+			b,
+			a);
+	return 0;
+}
 Draw::Draw(GLuint _shaderProgram) {
+	glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
 	GLuint shaderProgram = _shaderProgram;
 	int smeshenie = glGetUniformLocation(shaderProgram, "Pos");
 	int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");

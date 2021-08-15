@@ -61,14 +61,11 @@ void read_shader_file(const char *vertexPath, const char *fragmentPath) {
 }
 
 void window_init(GLFWwindow* window) {
-  glfwSetTime(0.0f);
-  glfwInit();
 
+  glfwSetTime(0.0f);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
-  window =
-      glfwCreateWindow(500, 500, "EBFSWT", NULL, NULL); // Not to be modified
   if (window == NULL) {
     print(LogType::critical, "Failed to create GLFW window");
     glfwTerminate();
@@ -80,8 +77,8 @@ void window_init(GLFWwindow* window) {
 
 int entrypoint()
 {
-  GLuint shaderProgram = glCreateProgram();
-  GLFWwindow* window;
+  glfwInit();
+  GLFWwindow* window = glfwCreateWindow(500, 500, "EBFSWT", NULL, NULL);;
   GLfloat vertices[] ={
       -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, // Upper corner
       -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, // Lower left corner
@@ -94,15 +91,16 @@ int entrypoint()
       1,2,3
     };
 
-  Draw* draw = new Draw(shaderProgram);
-  Shaders* shaders = new Shaders(shaderProgram);
-  Textures* textures = new Textures(shaderProgram);
   set_error_type(LogType::info);
   window_init(window);
   read_shader_file("shader.vert", "shader.frag");
 
+  GLuint shaderProgram = glCreateProgram();
+  Draw* draw = new Draw(shaderProgram);
+  Shaders* shaders = new Shaders(shaderProgram);
+  Textures* textures = new Textures(shaderProgram);
+
   shaders->load(vertexShaderSource, fragmentShaderSource);
-  GLuint VAO, VBO, IBO = draw->create_obj(vertices, verticesid);
 
   //stbi_image_free(image);
   print(LogType::info,       "Info test"    );
@@ -114,7 +112,7 @@ int entrypoint()
   struct Farbfeld *tex = readFarbfeld("test.ff");
   if (tex != nullptr) {
     char *buf = (char *)malloc(sizeof(char) * 150);
-    sprintf(buf, "magic: %s, w: %u, h: %u", tex->magicVal, tex->width,
+    printf(buf, "magic: %s, w: %u, h: %u", tex->magicVal, tex->width,
             tex->height);
     print(LogType::info, buf);
   } else {
@@ -122,22 +120,23 @@ int entrypoint()
                           " into executing directory(not next to executable)");
   };
 
-  glUseProgram(shaderProgram);
+  struct arr_buf * arr = draw->create_obj(vertices, verticesid);
 
+
+  draw->clear();
+  draw->color(0.2f, 0.4f, 0.6f, 1.0f);
   while (!glfwWindowShouldClose(window)) {
     for (float i = 0; i < 11; i++) {
       for (float j = 0; j < 11; j++) {
-        // How should I fix it
-        // If I haven't code?
-        // render.draw
+          draw->rect(5, 5, arr->vao, arr->ibo);
       }
     }
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
 
-  glDeleteVertexArrays(1, &VAO);
-  glDeleteBuffers(1, &VBO);
+  glDeleteVertexArrays(1, &arr->vao);
+  glDeleteBuffers(1, &arr->ibo);
   glDeleteProgram(shaderProgram);
   glfwDestroyWindow(window);
   glfwTerminate();

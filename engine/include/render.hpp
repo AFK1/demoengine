@@ -1,12 +1,18 @@
 #include <swt.hpp>
 
+struct arr_buf {
+	GLuint vao;
+	GLuint vbo;
+	GLuint ibo;
+};
+
 class Draw
 {
 public:
-	int create_obj(const void* vertices, const void* verticesid);
+	struct arr_buf* create_obj(const void* vertices, const void* verticesid);
 	int clear();
 	int rect(float x, float y, GLuint VAO, GLuint IBO);
-
+	int color(float r, float g, float b, float a);
 	Draw(GLuint _shaderProgram);
 private:
 	GLuint shaderProgram;
