@@ -6,17 +6,24 @@ project(swt_ebf_engine
   LANGUAGES CXX
   )
 
+set( CMAKE_CXX_STANDARD 20 )
+set( CMAKE_INSTALL_MESSAGE LAZY )
+
 find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 
 include_directories(include)
 
-add_library(${CMAKE_PROJECT_NAME}
+add_library(${PROJECT_NAME} STATIC
   src/swtebf.cpp
+
+  include/swtebf.hpp
+
   src/glad.c
   )
+add_library(swt_ebf::engine ALIAS ${PROJECT_NAME})
 
-target_link_libraries(${CMAKE_PROJECT_NAME}
-  opengl32
+target_link_libraries(${PROJECT_NAME}
+  ${OPENGL_LIBRARIES}
   glfw
   )

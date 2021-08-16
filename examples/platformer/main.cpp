@@ -1,6 +1,7 @@
 #include <swtebf.hpp>
 
-none
-SWT_Init()
+int
+main()
 {
+  SWT_Init();
 };
