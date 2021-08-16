@@ -7,7 +7,9 @@ project(swt_ebf_all)
 option(BUILD_ENGINE "Build engine sources" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 
-add_subdirectory(engine)
+if (BUILD_ENGINE)
+  add_subdirectory(engine)
+endif(BUILD_ENGINE)
 
 if (BUILD_EXAMPLES)
   add_subdirectory(examples)
