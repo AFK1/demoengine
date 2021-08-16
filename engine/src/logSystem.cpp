@@ -10,6 +10,7 @@ static LogType current_type = LogType::none;
 
 static const char * logNames[] = 
 {
+  "None",
   "Info",
   "Warning",
   "Error",
@@ -31,7 +32,7 @@ print(LogType _type, const char *_str)
     {
       if (strlen(_str) > MAX_LOG_LENGTH+20)
         return 2;
-      printf("Log::%s: %s\n", logNames[(int)current_type], _str);
+      printf("Log::%s: %s\n", logNames[(int)_type], _str);
       return 1;
     }
   else
