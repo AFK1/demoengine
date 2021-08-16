@@ -17,9 +17,11 @@ include_directories(include)
 add_library(${PROJECT_NAME} STATIC
   src/swtebf.cpp
   src/logSystem.cpp
+  src/farbfeld.cpp
 
   include/swtebf.hpp
   include/logSystem.hpp
+  include/farbfeld.hpp
 
   src/glad.c
   )

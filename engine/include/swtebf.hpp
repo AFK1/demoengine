@@ -11,4 +11,6 @@ SWT_Init();
 
 #include <logSystem.hpp>
 
+#include <farbfeld.hpp>
+
 #endif
