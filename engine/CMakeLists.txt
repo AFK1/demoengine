@@ -13,6 +13,7 @@ include_directories(include)
 
 add_library(${CMAKE_PROJECT_NAME}
   src/swtebf.cpp
+  src/glad.c
   )
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
