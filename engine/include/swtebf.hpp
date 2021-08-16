@@ -4,7 +4,7 @@
 #include <types.hpp>
 
 /*!
- * \brief Init SWT engine
+ * Init SWT engine
  */
 none
 SWT_Init();

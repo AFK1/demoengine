@@ -8,7 +8,6 @@
 /*!
  * Levels of logging
  */
-
 enum class LogType
 {
   none, //< Don't print info at all
@@ -24,7 +23,7 @@ enum class LogType
  *
  * @param[in] _type selected level
  *
- * \return Nothing
+ * @return Nothing
  */
 
 none
@@ -38,7 +37,7 @@ set_log_level(LogType _type);
  * @param[in] _type information level
  * @param[in] _str information
  *
- * \return 1 if printed, 0 if ignored,
+ * @return 1 if printed, 0 if ignored,
  * 2 if log_limit is exceeded.
  */
 
