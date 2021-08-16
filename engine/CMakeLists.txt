@@ -16,8 +16,10 @@ include_directories(include)
 
 add_library(${PROJECT_NAME} STATIC
   src/swtebf.cpp
+  src/logSystem.cpp
 
   include/swtebf.hpp
+  include/logSystem.hpp
 
   src/glad.c
   )

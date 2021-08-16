@@ -9,4 +9,6 @@
 none
 SWT_Init();
 
+#include <logSystem.hpp>
+
 #endif
