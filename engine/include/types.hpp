@@ -9,5 +9,7 @@ typedef float    f32;
 typedef double   f64;
 typedef void *   any;
 typedef void    none;
+typedef uint16_t u16;
+typedef uint8_t   u8;
 
 #endif // __EBFSWT_TYPES_H_
