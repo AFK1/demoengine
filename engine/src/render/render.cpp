@@ -21,8 +21,6 @@ int main( int argc, char* args[] )
     glfwMakeContextCurrent(window);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-    glfwInitDisplayMode( GLUT_DOUBLE );
-    glfwInitWindowSize( SCREEN_WIDTH, SCREEN_HEIGHT );
     glfwCreateWindow( "OpenGL" );
 
     if( !initGL() )
