@@ -2,7 +2,7 @@
 and may not be redistributed without written permission.*/
 //Version: 002
 
-#include "LTexture.h"
+#include <"LTexture.h>
 #include <IL/IL.h>
 
 LTexture::LTexture()
