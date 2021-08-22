@@ -27,6 +27,12 @@ add_library(${PROJECT_NAME} STATIC
   )
 add_library(swt_ebf::engine ALIAS ${PROJECT_NAME})
 
+if(WIN32)
+target_link_libraries(${PROJECT_NAME}
+	Ws2_32.lib
+  )
+endif(WIN32)
+
 target_link_libraries(${PROJECT_NAME}
   ${OPENGL_LIBRARIES}
   glfw
