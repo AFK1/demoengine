@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
+if (WIN32)
+  list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
+endif(WIN32)
 
 project(swt_ebf_all)
 
