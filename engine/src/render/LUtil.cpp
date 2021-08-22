@@ -2,10 +2,10 @@
 and may not be redistributed without written permission.*/
 //Version: 006
 
-#include "LUtil.h"
+#include <LUtil.h>
 #include <IL/il.h>
 #include <IL/ilu.h>
-#include "LTexture.h"
+#include <LTexture.h>
 
 //File loaded texture
 LTexture gLoadedTexture;

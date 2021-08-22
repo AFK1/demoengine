@@ -1,10 +1,11 @@
-#include "logSystem.hpp"
+#include <logSystem.hpp>
 #include <farbfeld.hpp>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #ifdef _WIN32
+#define _CRT_SECURE_NO_WARNINGS
 #include <winsock.h>
 #else
 #include <arpa/inet.h>
