@@ -15,16 +15,18 @@ find_package(OpenGL REQUIRED)
 include_directories(include)
 
 add_library(${PROJECT_NAME} STATIC
-  src/swtebf.cpp
+  src/demoengine.cpp
   src/logSystem.cpp
   src/farbfeld.cpp
+  src/render.cpp
+  src/stb_image.cpp
 
-  include/swtebf.hpp
+  include/demoengine.hpp
   include/logSystem.hpp
   include/farbfeld.hpp
 
   src/glad.c
-  )
+   "include/render.hpp")
 add_library(swt_ebf::engine ALIAS ${PROJECT_NAME})
 
 if(WIN32)
