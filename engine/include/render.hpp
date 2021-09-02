@@ -8,6 +8,7 @@ struct arr_buf {
 	GLuint vbo;
 	GLuint ibo;
 };
+
 struct arr_buf* create_obj(const void* vertices, const void* verticesid);
 void clear();
 void swap(GLFWwindow* window);
@@ -20,5 +21,5 @@ unsigned char* Textures_load(const char* str, int& width, int& height, int& nmc)
 int Textures_del(const GLuint* textureind);
 int Textures_active(GLuint texture);
 int Textures_generate(unsigned char* image, int width, int height, int nmc);
-int render_init();
+GLFWwindow* render_init();
 void close_win(GLFWwindow* window);

@@ -24,6 +24,7 @@ add_library(${PROJECT_NAME} STATIC
   include/demoengine.hpp
   include/logSystem.hpp
   include/farbfeld.hpp
+  include/render.hpp
 
   src/glad.c
    "include/render.hpp")

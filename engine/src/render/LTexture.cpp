@@ -2,7 +2,7 @@
 and may not be redistributed without written permission.*/
 //Version: 002
 
-#include <"LTexture.h>
+#include <LTexture.hpp>
 #include <IL/IL.h>
 
 LTexture::LTexture()
@@ -46,7 +46,7 @@ bool LTexture::loadTextureFromFile(const char * path )
     //Report error
     if( !textureLoaded )
     {
-        printf( "Unable to load %s\n", path.c_str() );
+        printf( "Unable to load %s\n", path );
     }
 
     return textureLoaded;

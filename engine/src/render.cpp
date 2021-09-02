@@ -21,11 +21,6 @@ int SCREEN_WIDTH = 500;
 GLuint shaderProgram;
 int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
 
-struct arr_buf {
-	GLuint vao;
-	GLuint vbo;
-	GLuint ibo;
-};
 
 
 const char* vertexShaderSource =
@@ -178,7 +173,7 @@ int Textures_generate(unsigned char* image, int width, int height, int nmc) {
 	return texture;
 }
 
-int render_init()//int argc, char* args[] )
+GLFWwindow* render_init()//int argc, char* args[] )
 {
     glfwInit();
     glfwSetTime(0.0f);
@@ -195,7 +190,7 @@ int render_init()//int argc, char* args[] )
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
 	//GL_ONE_MINUS_CONSTANT_COLOR
 	glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
-	return glGetError();
+	return window;
 }
 void close_win(GLFWwindow* window) {
 	glDeleteProgram(shaderProgram);

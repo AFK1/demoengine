@@ -2,10 +2,10 @@
 and may not be redistributed without written permission.*/
 //Version: 006
 
-#include <LUtil.h>
+#include <LUtil.hpp>
 #include <IL/il.h>
 #include <IL/ilu.h>
-#include <LTexture.h>
+#include <LTexture.hpp>
 
 //File loaded texture
 LTexture gLoadedTexture;
@@ -13,7 +13,6 @@ LTexture gLoadedTexture;
 bool initGL()
 {
     //Set the viewport
-    glViewport( 0.f, 0.f, SCREEN_WIDTH, SCREEN_HEIGHT );
 
     //Initialize Projection Matrix
     glMatrixMode( GL_PROJECTION );
@@ -21,14 +20,11 @@ bool initGL()
     glOrtho( 0.0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0, 1.0, -1.0 );
 
     //Initialize Modelview Matrix
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
 
     //Initialize clear color
     glClearColor( 0.f, 0.f, 0.07f, 1.f );
 
     //Enable texturing
-    glEnable( GL_TEXTURE_2D );
 
     //Check for error
     GLenum error = glGetError();

@@ -13,4 +13,6 @@ SWT_Init();
 
 #include <farbfeld.hpp>
 
+#include <render.hpp>
+
 #endif
