@@ -21,12 +21,6 @@ int SCREEN_WIDTH = 500;
 GLuint shaderProgram;
 int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
 
-struct arr_buf {
-	GLuint vao;
-	GLuint vbo;
-	GLuint ibo;
-};
-
 
 const char* vertexShaderSource =
 "#version 300 core\n"
