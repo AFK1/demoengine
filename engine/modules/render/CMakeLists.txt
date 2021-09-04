@@ -22,3 +22,22 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(demoengine PUBLIC
   ${PROJECT_NAME}
   )
+
+
+# == GLFW ==
+
+# GLX
+cmake_policy(SET CMP0072 NEW)
+
+find_package(OpenGL REQUIRED)
+
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(glfw)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC
+  glfw
+  OpenGL::GL
+  )
