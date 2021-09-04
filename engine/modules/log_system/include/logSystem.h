@@ -8,14 +8,15 @@
 /*!
  * Levels of logging
  */
-enum class LogType
+typedef enum Log_Types
 {
-  none, //< Don't print info at all
-  info, //< Debug information
-  warn, //< Warnings
-  error, //< Non-critical errors
-  critical, //< Critical errors
-};
+  Log_Type_None = 0, //< Don't print info at all
+  Log_Type_Info, //< Debug information
+  Log_Type_Warn, //< Warnings
+  Log_Type_Error, //< Non-critical errors
+  Log_Type_Critical, //< Critical errors
+  Log_Types_Len, //< Don't use it
+} Log_Types;
 
 
 /*!
@@ -27,7 +28,7 @@ enum class LogType
  */
 
 none
-set_log_level(LogType _type);
+set_log_level(Log_Types _type);
 
 
 /*!
@@ -42,7 +43,7 @@ set_log_level(LogType _type);
  */
 
 i32
-print(LogType _type, const char * _str);
+print(Log_Types _type, const char * _str);
 
 
 #endif // __SWT_LOG_SYSTEM_H_

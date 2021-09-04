@@ -4,7 +4,7 @@ if (WIN32)
   list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 endif(WIN32)
 
-project(swt_ebf_all)
+project(demoengine_all)
 
 option(BUILD_ENGINE "Build engine sources" ON)
 option(BUILD_EXAMPLES "Build examples" ON)

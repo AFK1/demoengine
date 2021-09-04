@@ -1,7 +1,7 @@
 #ifndef __EBFSWT_H_
 #define __EBFSWT_H_
 
-#include <types.hpp>
+#include <types.h>
 
 typedef struct v3f
 {
@@ -27,7 +27,7 @@ DEMO_Init();
 none
 DEMO_Loop();
 
-#include <logSystem.hpp>
+#include <logSystem.h>
 
 #include <farbfeld.hpp>
 

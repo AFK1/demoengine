@@ -1,6 +1,6 @@
 #include <demoengine.hpp>
 #include <stb_image.h>
-#include <logSystem.hpp>
+#include <logSystem.h>
 #include <render.hpp>
 
 
@@ -134,14 +134,14 @@ void shaders_load(const char* vertexShaderSource, const char* fragmentShaderSour
 	int error = 0;
 	if ((error = glGetError()) != 0)
 	{
-		print(LogType::error, "Can't load shader");
+		print(Log_Type_Error, "Can't load shader");
 	};
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 	if ((error = glGetError()) != 0)
 	{
-		print(LogType::warn, "Can't delete unused shaders");
+		print(Log_Type_Warn, "Can't delete unused shaders");
 	};
 }
 void Shaders_init(unsigned int _shaderProgram) {

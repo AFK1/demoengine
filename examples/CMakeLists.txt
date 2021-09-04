@@ -1,3 +1,3 @@
-project(swt_ebf_examples)
+project(demoengine_examples)
 
 add_subdirectory(platformer)

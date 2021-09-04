@@ -1,4 +1,4 @@
-#include <logSystem.hpp>
+#include <logSystem.h>
 #include <farbfeld.hpp>
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +20,7 @@ readFarbfeld(const char *_path)
   FILE * f_data = fopen(_path, "r");
   if (f_data == nullptr)
     {
-      print(LogType::error, "Can't load texture");
+      print(Log_Type_Error, "Can't load texture");
       return nullptr;
     };
   size_t readed = 0;
@@ -31,7 +31,7 @@ readFarbfeld(const char *_path)
 
   if (fileSize < sizeof(struct Farbfeld))
     {
-      print(LogType::error, "Empty texture file");
+      print(Log_Type_Error, "Empty texture file");
       return nullptr;
     };
 
@@ -40,7 +40,7 @@ readFarbfeld(const char *_path)
   readed = fread(head, 1, sizeof(struct Farbfeld)-sizeof(struct RGBA*), f_data);
   if (readed != sizeof(struct Farbfeld)-sizeof(struct RGBA*))
     {
-      print(LogType::error, "Texture too small");
+      print(Log_Type_Error, "Texture too small");
       return nullptr;
     };
   memcpy(data->magic, head, 8);
@@ -51,7 +51,7 @@ readFarbfeld(const char *_path)
   readed = fread(data->data, 1, sizeof(struct RGBA)*data->width*data->height, f_data);
   if (readed != sizeof(struct RGBA)*data->width*data->height)
     {
-      print(LogType::error, "Texture size error");
+      print(Log_Type_Error, "Texture size error");
       return nullptr;
     };
 
