@@ -19,8 +19,8 @@ GLuint verticesid[] =
 int SCREEN_HEIGHT = 500;
 int SCREEN_WIDTH = 500;
 GLuint shaderProgram;
-int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
-int smeshenie = glGetUniformLocation(shaderProgram, "Pos");
+int vertexColorLocation;
+int smeshenie;
 
 struct arr_buf {
 	GLuint vao;
@@ -103,7 +103,7 @@ void clear() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 void swap(void* window) {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers((GLFWwindow*)window);
 }
 void draw(float x, float y, arr_buf* arr) {
 	glUniform2f(smeshenie, x, y);
@@ -146,6 +146,8 @@ void shaders_load(const char* vertexShaderSource, const char* fragmentShaderSour
 }
 void Shaders_init(unsigned int _shaderProgram) {
 	shaderProgram = _shaderProgram;
+	vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
+	smeshenie = glGetUniformLocation(shaderProgram, "Pos");
 }
 
 unsigned char* Textures_load(const char* str, int& width, int& height, int& nmc) {
@@ -153,7 +155,7 @@ unsigned char* Textures_load(const char* str, int& width, int& height, int& nmc)
 	image = stbi_load(str, &width, &height, &nmc, 0);
 	return image;
 }
-int Textures_del(const int* textureind) {
+int Textures_del(const unsigned int* textureind) {
 	glDeleteTextures(1, textureind);
 	return glGetError();
 }
