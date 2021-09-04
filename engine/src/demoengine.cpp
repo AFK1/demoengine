@@ -3,4 +3,11 @@
 none
 SWT_Init()
 {
+
+};
+
+none
+SWT_Loop()
+{
+  
 };
