@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 
+project(demoengine_all)
+
 if (WIN32)
   list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 endif(WIN32)
-
-project(demoengine_all)
 
 option(BUILD_ENGINE "Build engine sources" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
