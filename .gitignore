@@ -7,3 +7,4 @@ build/
 CMakeSettings.json
 compile_commands.json
 .cache
+setup_settings.sh
