@@ -1,6 +1,13 @@
 #include <demoengine.hpp>
 
 none
-SWT_Init()
+DEMO_Init()
 {
+
+};
+
+none
+DEMO_Loop()
+{
+  
 };

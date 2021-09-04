@@ -3,11 +3,29 @@
 
 #include <types.hpp>
 
+typedef struct v3f
+{
+  float x;
+  float y;
+  float z;
+} v3f;
+
+typedef struct DemoObject
+{
+  v3f * Transform = nullptr;
+} DemoObject;
+
 /*!
- * Init SWT engine
+ * Init Demo engine
  */
 none
-SWT_Init();
+DEMO_Init();
+
+/*!
+ * Start Demo engine
+ */
+none
+DEMO_Loop();
 
 #include <logSystem.hpp>
 

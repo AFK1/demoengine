@@ -5,7 +5,7 @@
 int
 main()
 {
-  SWT_Init();
+  DEMO_Init();
   set_log_level(LogType::info);
   print(LogType::info, "Log test");
   struct Farbfeld* texture = readFarbfeld("test.ff");
@@ -19,7 +19,7 @@ main()
 	  "Please, place test.ff file into execution folder");
     };
   void* window = gl3_init();
-  for(int n;n<100;n++){}
+  for(int n = 0;n<100;n++){}
   close_win(window);
   return 0;
 };
