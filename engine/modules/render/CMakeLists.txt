@@ -11,7 +11,6 @@ add_library(${PROJECT_NAME}
 
   include/render.h
   include/glad/glad.h
-  include/GLFW/glfw3.h
   include/KHR/khrplatform.h
   )
 
