@@ -20,7 +20,13 @@ int SCREEN_HEIGHT = 500;
 int SCREEN_WIDTH = 500;
 GLuint shaderProgram;
 int vertexColorLocation = glGetUniformLocation(shaderProgram, "Color");
+int smeshenie = glGetUniformLocation(shaderProgram, "Pos");
 
+struct arr_buf {
+	GLuint vao;
+	GLuint vbo;
+	GLuint ibo;
+};
 
 const char* vertexShaderSource =
 "#version 300 core\n"
@@ -45,7 +51,7 @@ const char* fragmentShaderSource =
 	"}\n\0";
 
 
-struct arr_buf* create_obj(const void* vertices, const void* verticesid) {
+struct arr_buf* create_obj(){//const void* vertices, const void* verticesid) {
 
 	GLuint VAO, VBO, IBO;
 	glGenVertexArrays(1, &VAO);
@@ -96,27 +102,28 @@ struct arr_buf* create_obj(const void* vertices, const void* verticesid) {
 void clear() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
-void swap(GLFWwindow* window) {
+void swap(void* window) {
 	glfwSwapBuffers(window);
 }
-void draw(float x, float y, GLuint VAO, GLuint IBO) {
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
+void draw(float x, float y, arr_buf* arr) {
+	glUniform2f(smeshenie, x, y);
+	glBindVertexArray(arr->vao);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, arr->ibo);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 void color(float r, float g, float b, float a) {
 	glUniform4f(vertexColorLocation,r,g,b,a);
 }
-void draw_init(GLuint _shaderProgram) {
+void draw_init() {
 	glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
 }
 
 void shaders_load(const char* vertexShaderSource, const char* fragmentShaderSource) {
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	glCompileShader(vertexShader);
 
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
 
@@ -137,7 +144,7 @@ void shaders_load(const char* vertexShaderSource, const char* fragmentShaderSour
 		print(LogType::warn, "Can't delete unused shaders");
 	};
 }
-void Shaders_init(GLuint _shaderProgram) {
+void Shaders_init(unsigned int _shaderProgram) {
 	shaderProgram = _shaderProgram;
 }
 
@@ -146,16 +153,16 @@ unsigned char* Textures_load(const char* str, int& width, int& height, int& nmc)
 	image = stbi_load(str, &width, &height, &nmc, 0);
 	return image;
 }
-int Textures_del(const GLuint* textureind) {
+int Textures_del(const int* textureind) {
 	glDeleteTextures(1, textureind);
 	return glGetError();
 }
-int Textures_active(GLuint texture) {
+int Textures_active(unsigned int texture) {
 	glBindTexture(GL_TEXTURE_2D, texture);
 	return glGetError();
 }
 int Textures_generate(unsigned char* image, int width, int height, int nmc) {
-	GLuint texture;
+	unsigned int texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, nmc == 3 ? GL_RGB : GL_RGBA, width, height, 0, nmc == 3 ? GL_RGB : GL_RGBA, GL_UNSIGNED_BYTE, image);
@@ -172,7 +179,7 @@ int Textures_generate(unsigned char* image, int width, int height, int nmc) {
 	return texture;
 }
 
-int render_init()//int argc, char* args[] )
+void* gl3_init()
 {
     glfwInit();
     glfwSetTime(0.0f);
@@ -189,9 +196,9 @@ int render_init()//int argc, char* args[] )
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);
 	//GL_ONE_MINUS_CONSTANT_COLOR
 	glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
-	return glGetError();
+	return window;
 }
-void close_win(GLFWwindow* window) {
+void close_win(void* window) {
 	glDeleteProgram(shaderProgram);
 	glfwDestroyWindow(window);
 	glfwTerminate();

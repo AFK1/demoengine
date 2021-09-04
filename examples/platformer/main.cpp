@@ -18,5 +18,8 @@ main()
       print(LogType::info, 
 	  "Please, place test.ff file into execution folder");
     };
+  GLFWwindow* window = render_init();
+  for(int n;n<100;n++){}
+  close_win(window);
   return 0;
 };

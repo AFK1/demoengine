@@ -31,4 +31,6 @@ DEMO_Loop();
 
 #include <farbfeld.hpp>
 
+#include <render.hpp>
+
 #endif

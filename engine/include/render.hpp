@@ -3,22 +3,19 @@
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
 
-struct arr_buf {
-	GLuint vao;
-	GLuint vbo;
-	GLuint ibo;
-};
+struct arr_buf;
+
 struct arr_buf* create_obj(const void* vertices, const void* verticesid);
 void clear();
-void swap(GLFWwindow* window);
-void draw(float x, float y, GLuint VAO, GLuint IBO);
+void swap(void* window);
+void draw(float x, float y, arr_buf* arr);
 void color(float r, float g, float b, float a);
-void draw_init(GLuint _shaderProgram);
+void draw_init();
 void shaders_load(const char* vertexShaderSource, const char* fragmentShaderSource);
-void Shaders_init(GLuint _shaderProgram);
+void Shaders_init(unsigned int _shaderProgram);
 unsigned char* Textures_load(const char* str, int& width, int& height, int& nmc);
-int Textures_del(const GLuint* textureind);
-int Textures_active(GLuint texture);
+int Textures_del(const unsigned int* textureind);
+int Textures_active(unsigned int texture);
 int Textures_generate(unsigned char* image, int width, int height, int nmc);
-int render_init();
-void close_win(GLFWwindow* window);
+void* render_init();
+void close_win(void* window);
