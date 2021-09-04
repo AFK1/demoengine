@@ -16,16 +16,16 @@ typedef struct DemoObject
 } DemoObject;
 
 /*!
- * Init SWT engine
+ * Init Demo engine
  */
 none
-SWT_Init();
+DEMO_Init();
 
 /*!
- * Start SWT engine
+ * Start Demo engine
  */
 none
-SWT_Loop();
+DEMO_Loop();
 
 #include <logSystem.hpp>
 

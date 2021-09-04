@@ -5,7 +5,7 @@
 int
 main()
 {
-  SWT_Init();
+  DEMO_Init();
   set_log_level(LogType::info);
   print(LogType::info, "Log test");
   struct Farbfeld* texture = readFarbfeld("test.ff");
