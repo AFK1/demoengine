@@ -200,6 +200,6 @@ void* gl3_init()
 }
 void close_win(void* window) {
 	glDeleteProgram(shaderProgram);
-	glfwDestroyWindow(window);
+	glfwDestroyWindow((GLFWwindow*)window);
 	glfwTerminate();
 }
