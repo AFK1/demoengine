@@ -18,7 +18,7 @@ main()
       print(LogType::info, 
 	  "Please, place test.ff file into execution folder");
     };
-  GLFWwindow* window = render_init();
+  void* window = gl3_init();
   for(int n = 0;n<100;n++){}
   close_win(window);
   return 0;

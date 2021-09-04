@@ -17,5 +17,5 @@ unsigned char* Textures_load(const char* str, int& width, int& height, int& nmc)
 int Textures_del(const unsigned int* textureind);
 int Textures_active(unsigned int texture);
 int Textures_generate(unsigned char* image, int width, int height, int nmc);
-void* render_init();
+void* gl3_init();
 void close_win(void* window);

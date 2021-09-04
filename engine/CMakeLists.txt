@@ -18,7 +18,7 @@ add_library(${PROJECT_NAME} STATIC
   src/demoengine.cpp
   src/logSystem.cpp
   src/farbfeld.cpp
-  src/render.cpp
+  src/opengl/render.cpp
   src/stb_image.cpp
 
   include/demoengine.hpp
