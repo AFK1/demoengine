@@ -8,6 +8,8 @@
 
 #ifdef LOGSYSTEM_MODULE
   #include <logsystem.h>
+#else
+  #include <nologsystem.h> // It's working!
 #endif // LOGSYSTEM_MODULE
 
 int

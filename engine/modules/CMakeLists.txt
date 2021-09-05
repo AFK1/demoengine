@@ -4,7 +4,7 @@ project(demoengine_modules)
 
 option(EXAMPLE_MODULE "Build example module" ON)
 option(RENDER_MODULE "Build render module" ON)
-option(LOGSYSTEM_MODULE "Build logSystem module" ON)
+option(LOGSYSTEM_MODULE "Build logSystem module" OFF)
 
 if(EXAMPLE_MODULE)
   message("Example module selected")
@@ -27,4 +27,8 @@ if(LOGSYSTEM_MODULE)
     LOGSYSTEM_MODULE
     )
   add_subdirectory(logsystem)
+else()
+  target_include_directories(demoengine PUBLIC
+    logsystem/include
+    )
 endif(LOGSYSTEM_MODULE)
