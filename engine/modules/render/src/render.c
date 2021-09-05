@@ -1,5 +1,6 @@
 #include <render.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int SCREEN_WIDTH;
 int SCREEN_HEIGHT;
@@ -134,7 +135,7 @@ void clear_win() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void render_init(int _SCREEN_WIDTH, int _SCREEN_HEIGHT) {
+GLenum render_init(int _SCREEN_WIDTH, int _SCREEN_HEIGHT) {
 	SCREEN_WIDTH = _SCREEN_WIDTH;
 	SCREEN_HEIGHT = _SCREEN_HEIGHT;
 	glfwInit();
