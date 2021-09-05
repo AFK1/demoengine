@@ -17,6 +17,7 @@ main()
   printf("Engine: example module used.\n");
   example_module_func();
 #endif // EXAMPLE_MODULE
+
 #ifdef LOGSYSTEM_MODULE
   set_loglevel(Log_Debug);
   print(Log_Debug,    "Debug message test");

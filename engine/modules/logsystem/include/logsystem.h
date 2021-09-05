@@ -1,5 +1,5 @@
-#ifndef __DEMO_M_EXAMPLE_H_
-#define __DEMO_M_EXAMPLE_H_
+#ifndef __DEMO_M_LOGSYSTEM_H_
+#define __DEMO_M_LOGSYSTEM_H_
 
 typedef enum Log_Type
 {
@@ -24,4 +24,4 @@ set_loglevel(Log_Type _level);
 int
 print(Log_Type _level, const char * _str);
 
-#endif // __DEMO_M_EXAMPLE_H_
+#endif // __DEMO_M_LOGSYSTEM_H_
