@@ -28,4 +28,6 @@ main()
   print(Log_Error,    "Error message test");
   print(Log_Critical, "Critical message test");
 #endif // LOGSYSTEM_MODULE
+
+  return demomain();
 };
