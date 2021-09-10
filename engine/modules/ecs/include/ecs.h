@@ -3,6 +3,7 @@
 
 #define MAX_ECS_ARRAY 255
 
+// Component identifier
 typedef unsigned int CID;
 
 typedef struct Component
@@ -13,26 +14,38 @@ typedef struct Component
 
 typedef struct Entity
 {
+  // Entity unique ID
   CID id;
+  // List of all components
   Component components[MAX_ECS_ARRAY];
 } Entity;
 
 typedef struct Scene
 {
+  /// ==== System part ====
+  
   // Functions for components (aka systems)
   void (*systems[MAX_ECS_ARRAY])(Component *);
 
   // Systems arguments
-  CID systems_components[MAX_ECS_ARRAY];
+  CID sys_comps[MAX_ECS_ARRAY];
+
+  // Systems array length.
+  unsigned int max_sys;
+
+  /// ==== Component part ====
 
   // All components
-  Component* components[MAX_ECS_ARRAY];
+  Component* comps[MAX_ECS_ARRAY];
+
+  // Components array length
+  CID max_cid;
 } Scene;
 
 /*!
  * Add component to components list.
- * @return component ID in list.
  * @param[in] _component component to add.
+ * @return component ID in list.
  */
 CID
 add_component(Component * _component);
@@ -44,5 +57,31 @@ add_component(Component * _component);
  */
 void
 add_system(void (*_system)(Component*), CID _cid);
+
+/*!
+ * Create new ECS scene.
+ * @return Pointer to scene.
+ */
+Scene*
+create_scene();
+
+/*!
+ * Set current scene.
+ * @param[in] _scene Scene to make current.
+ * @return Scene, if success.
+ */
+Scene*
+set_scene(Scene* _scene);
+
+/*!
+ * Trying to get current scene and if can't create new.
+ *
+ * @return Current scene.
+ *
+ * @Warn This is always returns scene, 
+ * even if it is dosen't exist yet.
+ */
+Scene*
+get_scene();
 
 #endif // __DEMO_M_ECS_H_
