@@ -128,24 +128,24 @@ void shaders_load(const char* vertexShaderSource, const char* fragmentShaderSour
 	glUseProgram(shaderProgram);
 }
 
-void swap_buf(void* window) {
+void swap_buf(GLFWwindow* window) {
 	glfwSwapBuffers(window);
 }
 void clear_win() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-GLenum render_init(int _SCREEN_WIDTH, int _SCREEN_HEIGHT) {
+GLFWwindow* render_init(int _SCREEN_WIDTH, int _SCREEN_HEIGHT) {
 	SCREEN_WIDTH = _SCREEN_WIDTH;
 	SCREEN_HEIGHT = _SCREEN_HEIGHT;
 	glfwInit();
 	glfwSetTime(0.0f);
+	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "a?", NULL, NULL);//What_make_me_a_good_demoman
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "What_make_me_a_good_demoman?", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_TEXTURE_2D);
 	//glMatrixMode(GL_PROJECTION);  glLoadIdentity();
 	glViewport(0.f, 0.f, SCREEN_WIDTH, SCREEN_HEIGHT);
 	//glMatrixMode(GL_MODELVIEW);  glLoadIdentity();
@@ -153,10 +153,10 @@ GLenum render_init(int _SCREEN_WIDTH, int _SCREEN_HEIGHT) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_COLOR);//GL_ONE_MINUS_CONSTANT_COLOR
 	glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
 	shaderProgram = glCreateProgram();
-	return glGetError();
+	return window;
 };
 
-void close_win(void* window) {
+void close_win(GLFWwindow* window) {
 	glDeleteProgram(shaderProgram);
 	glfwDestroyWindow(window);
 	glfwTerminate();

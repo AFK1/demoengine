@@ -1,6 +1,7 @@
 
 #include <demoengine.h>
 #include <stdio.h>
+#include <render.h>
 
 #ifdef EXAMPLE_MODULE
   #include <example.h>
@@ -29,5 +30,8 @@ main()
   print(Log_Critical, "Critical message test");
 #endif // LOGSYSTEM_MODULE
 
+  void* win = render_init(500, 500);
+  clear_win();
+  swap_buf(win);
   return demomain();
 };

@@ -5,6 +5,7 @@ project(demoengine_modules)
 option(EXAMPLE_MODULE "Build example module" ON)
 option(RENDER_MODULE "Build render module" ON)
 option(LOGSYSTEM_MODULE "Build logSystem module" OFF)
+option(PHYSIC_MODULE "Build physic module" ON)
 
 if(EXAMPLE_MODULE)
   message("Example module selected")
@@ -15,7 +16,7 @@ if(EXAMPLE_MODULE)
 endif(EXAMPLE_MODULE)
 
 if(RENDER_MODULE)
-  message("Example render selected")
+  message("Render module selected")
   target_compile_definitions(demoengine PUBLIC
     RENDER_MODULE
     )
@@ -32,3 +33,13 @@ else()
     logsystem/include
     )
 endif(LOGSYSTEM_MODULE)
+
+if(PHYSIC_MODULE)
+  message("Physic module selected")
+  target_compile_definitions(demoengine PUBLIC
+    PHYSIC_MODULE
+    )
+  add_subdirectory(physic)
+endif(PHYSIC_MODULE)
+
+
