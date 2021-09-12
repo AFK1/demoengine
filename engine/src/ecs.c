@@ -12,18 +12,6 @@
 
 static Scene * current_scene = NULL;
 
-CID
-add_component(Component * _component)
-{
-  /*
-   * current_scene->components[end] = _component;
-   * return end;
-   */
-  current_scene->components_arrays[current_scene->components_array_length]
-    = _component;
-  return current_scene->components_array_length++;
-};
-
 void
 add_system(void (*_system)(Component*), CID _cid)
 {
@@ -31,6 +19,19 @@ add_system(void (*_system)(Component*), CID _cid)
   current_scene->systems_args[current_scene->systems_array_length] = _cid;
   current_scene->systems_array_length += 1;
   return;
+};
+
+CID
+reg_component()
+{
+  return current_scene->empty_cid++;
+};
+
+void
+add_component(Entity * _ent, CID _cid)
+{
+  _ent->components[_ent->components_length++] = 
+    create_component(_cid);
 };
 
 Scene*
@@ -64,7 +65,6 @@ ecs_step()
 {
   for (int i = 0; i < current_scene->systems_array_length; i++)
     {
-      current_scene->systems_array[i]
-        (current_scene->components_arrays[current_scene->systems_args[i]]);
+      // TODO: execute all systems with all components.
     };
 };

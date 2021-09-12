@@ -16,8 +16,12 @@ typedef struct Entity
 {
   // Entity unique ID
   CID id;
+
   // List of all components
-  Component components[MAX_ECS_ARRAY];
+  Component * components[MAX_ECS_ARRAY];
+
+  // Length of components array.
+  unsigned int components_length;
 } Entity;
 
 typedef struct Scene
@@ -34,24 +38,56 @@ typedef struct Scene
   unsigned int systems_array_length;
 
   /// ==== Component part ====
+
+  // Smallest empty component id.
+  CID empty_cid;
   
   // All components
-  Component* components_arrays[MAX_ECS_ARRAY];
+  Component* components_arrays[MAX_ECS_ARRAY][MAX_ECS_ARRAY];
 
   // Components array length
   CID components_array_length;
+
+  /// ==== Entity part ====
+
+  // All entities on scene.
+  Entity* entities[MAX_ECS_ARRAY];
+
+  // Number of all entities.
+  unsigned int entities_length;
+
 } Scene;
 
 /*!
- * Add component to components list.
- * @param[in] _component component to add.
- * @return component ID in list.
+ * Registers component in components list.
+ * @return Empty CID for component.
  */
 CID
-add_component(Component * _component);
+reg_component();
 
 /*!
- * Add system to ECS loop.
+ * Create new component by it's id.
+ * @param[in] _cid ID of component in components list.
+ * @return Pointer to component.
+ */
+Component*
+create_component(CID _cid);
+
+/*!
+ * Adds component to entity.
+ * @param[in] _ent entity to add component to.
+ * @param[in] _cid ID of component to add.
+ * @return Nothing.
+ */
+void
+add_component(Entity* _ent, CID _cid);
+
+/*!
+ * Create new entity.
+ */
+
+/*!
+ * Adds system to ECS loop.
  * @param[in] _system pointer to system function.
  * @param[in] _cid CID of component.
  */
