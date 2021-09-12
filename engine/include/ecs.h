@@ -25,21 +25,21 @@ typedef struct Scene
   /// ==== System part ====
   
   // Functions for components (aka systems)
-  void (*systems[MAX_ECS_ARRAY])(Component *);
+  void (*systems_array[MAX_ECS_ARRAY])(Component *);
 
   // Systems arguments
-  CID sys_comps[MAX_ECS_ARRAY];
+  CID systems_args[MAX_ECS_ARRAY];
 
   // Systems array length.
-  unsigned int max_sys;
+  unsigned int systems_array_length;
 
   /// ==== Component part ====
-
+  
   // All components
-  Component* comps[MAX_ECS_ARRAY];
+  Component* components_arrays[MAX_ECS_ARRAY];
 
   // Components array length
-  CID max_cid;
+  CID components_array_length;
 } Scene;
 
 /*!
@@ -83,5 +83,11 @@ set_scene(Scene* _scene);
  */
 Scene*
 get_scene();
+
+/*!
+ * Execute all systems in current scene.
+ */
+void
+ecs_step();
 
 #endif // __DEMO_M_ECS_H_

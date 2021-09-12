@@ -5,7 +5,6 @@ project(demoengine_modules)
 option(EXAMPLE_MODULE "Build example module" ON)
 option(RENDER_MODULE "Build render module" ON)
 option(LOGSYSTEM_MODULE "Build logSystem module" ON)
-option(ECS_MODULE "Build ECS module" ON)
 
 if(EXAMPLE_MODULE)
   message("Example module selected")
@@ -33,10 +32,3 @@ else()
     logsystem/include
     )
 endif(LOGSYSTEM_MODULE)
-
-if(ECS_MODULE)
-  target_compile_definitions(demoengine PUBLIC
-    ECS_MODULE
-    )
-  add_subdirectory(ecs)
-endif(ECS_MODULE)

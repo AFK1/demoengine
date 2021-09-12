@@ -4,8 +4,10 @@ project(demoengine)
 
 add_executable(${PROJECT_NAME}
   src/demoengine.c
+  src/ecs.c
 
   include/demoengine.h
+  include/ecs.h
   )
 add_executable(demoengine::main ALIAS ${PROJECT_NAME})
 
