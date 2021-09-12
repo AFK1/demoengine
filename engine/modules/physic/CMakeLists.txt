@@ -11,8 +11,12 @@ add_library(${PROJECT_NAME}
   include/physic.h
   )
 
+message("${logsystem_dirs}")
+
 target_include_directories(${PROJECT_NAME} PUBLIC
   include
+  ../../include
+  ${logsystem_dirs}
   )
   
 target_link_libraries(demoengine PUBLIC

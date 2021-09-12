@@ -19,6 +19,8 @@ typedef struct Entity
   // Entity unique ID
   CID id;
 
+  CID components_ids[MAX_ECS_ARRAY];
+
   // List of all components
   Component * components[MAX_ECS_ARRAY];
 
@@ -81,12 +83,13 @@ void
 add_component(CID _ent, Component * _component, CID _cid);
 
 /*!
- * Allocate memory for component.
+ * Allocate memory for component and set parent.
  * @param[in] _size Size of component.
+ * @param[in] _ent Parent of the component.
  * @return Allocated memory for component.
  */
 Component*
-allocate_component(size_t _size);
+allocate_component(size_t _size, CID _ent);
 
 /*!
  * Adds system to ECS loop.
@@ -126,6 +129,24 @@ get_scene();
  */
 CID
 create_entity();
+
+/*!
+ * Get entity by it's ID.
+ * @param[in] _id ID of the entity.
+ * @return Pointer to entity.
+ */
+Entity *
+get_entity(CID _id);
+
+/*!
+ * Get component from entity.
+ * @param[in] _ent ID of the entity.
+ * @param[in] _cid ID of the component to find.
+ * @return Pointer to component if found,
+ * NULL if not found.
+ */
+Component *
+get_entity_component(CID _ent, CID _cid);
 
 /*!
  * Execute all systems in current scene.

@@ -28,9 +28,11 @@ if(LOGSYSTEM_MODULE)
     LOGSYSTEM_MODULE
     )
   add_subdirectory(logsystem)
+  set(logsystem_dirs "${CMAKE_CURRENT_SOURCE_DIR}/logsystem/include") 
 else()
+  set(logsystem_dirs "${CMAKE_CURRENT_SOURCE_DIR}/logsystem/include")
   target_include_directories(demoengine PUBLIC
-    logsystem/include
+    logsystem/ninclude
     )
 endif(LOGSYSTEM_MODULE)
 
