@@ -15,8 +15,10 @@ static Scene * current_scene = NULL;
 void
 add_system(void (*_system)(Component*), CID _cid)
 {
-  current_scene->systems_array[current_scene->systems_array_length] = _system;
-  current_scene->systems_args[current_scene->systems_array_length] = _cid;
+  current_scene->systems_array
+    [current_scene->systems_array_length] = _system;
+  current_scene->systems_args
+    [current_scene->systems_array_length] = _cid;
   current_scene->systems_array_length += 1;
   return;
 };
@@ -28,15 +30,22 @@ reg_component()
 };
 
 void
-add_component(Entity * _ent, CID _cid)
+add_component(Entity * _ent, Component * _component, CID _cid)
 {
+  // Add component to entity.
   _ent->components[_ent->components_length++] = 
-    create_component(_cid);
+    _component;
+
+  // Add component to scene components.
+  current_scene->components_arrays[_cid]
+    [current_scene->specific_components_length[_cid]++]
+    = _component;
 };
 
 Scene*
 create_scene()
 {
+  // Allocate scene.
   Scene * scene = (Scene*)
     malloc(sizeof(Scene));
   // Clear segment.

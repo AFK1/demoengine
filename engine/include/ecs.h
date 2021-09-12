@@ -46,7 +46,10 @@ typedef struct Scene
   Component* components_arrays[MAX_ECS_ARRAY][MAX_ECS_ARRAY];
 
   // Components array length
-  CID components_array_length;
+  CID components_arrays_length;
+
+  // Specific components array length
+  unsigned int specific_components_length[MAX_ECS_ARRAY];
 
   /// ==== Entity part ====
 
@@ -74,13 +77,14 @@ Component*
 create_component(CID _cid);
 
 /*!
- * Adds component to entity.
+ * Adds component to entity and scene.
  * @param[in] _ent entity to add component to.
- * @param[in] _cid ID of component to add.
+ * @param[in] _component Component to add.
+ * @param[in] _cid component's ID.
  * @return Nothing.
  */
 void
-add_component(Entity* _ent, CID _cid);
+add_component(Entity * _ent, Component * _component, CID _cid);
 
 /*!
  * Create new entity.
