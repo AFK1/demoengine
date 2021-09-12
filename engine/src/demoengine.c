@@ -2,6 +2,7 @@
 #include <demoengine.h>
 #include <stdio.h>
 #include <ecs.h>
+#include <render.h>
 
 #ifdef EXAMPLE_MODULE
   #include <example.h>
@@ -70,6 +71,11 @@ main()
 
   for (unsigned int i = 0x0; i < 0xFF; i++)
     ecs_step();
+
+  // Render
+  void* win = render_init(500, 500);
+  clear_win();
+  swap_buf(win);
 
   // Game function
   return demomain();
