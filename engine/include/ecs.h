@@ -1,7 +1,9 @@
 #ifndef __DEMO_M_ECS_H_
 #define __DEMO_M_ECS_H_
 
-#define MAX_ECS_ARRAY 255
+#include <stddef.h>
+
+#define MAX_ECS_ARRAY 0xFF
 
 // Component identifier
 typedef unsigned int CID;
@@ -69,26 +71,22 @@ CID
 reg_component();
 
 /*!
- * Create new component by it's id.
- * @param[in] _cid ID of component in components list.
- * @return Pointer to component.
- */
-Component*
-create_component(CID _cid);
-
-/*!
  * Adds component to entity and scene.
- * @param[in] _ent entity to add component to.
+ * @param[in] _ent ID of entity to add component to.
  * @param[in] _component Component to add.
  * @param[in] _cid component's ID.
  * @return Nothing.
  */
 void
-add_component(Entity * _ent, Component * _component, CID _cid);
+add_component(CID _ent, Component * _component, CID _cid);
 
 /*!
- * Create new entity.
+ * Allocate memory for component.
+ * @param[in] _size Size of component.
+ * @return Allocated memory for component.
  */
+Component*
+allocate_component(size_t _size);
 
 /*!
  * Adds system to ECS loop.
@@ -115,14 +113,19 @@ set_scene(Scene* _scene);
 
 /*!
  * Trying to get current scene and if can't create new.
- *
  * @return Current scene.
- *
  * @Warn This is always returns scene, 
  * even if it is dosen't exist yet.
  */
 Scene*
 get_scene();
+
+/*!
+ * Creates entity on current scene.
+ * @return Entity's unique id.
+ */
+CID
+create_entity();
 
 /*!
  * Execute all systems in current scene.

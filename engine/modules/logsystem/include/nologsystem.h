@@ -1,3 +1,3 @@
 
-#define set_loglevel()
-#define print()
+#define set_loglevel(...)
+#define print(...)

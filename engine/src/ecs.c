@@ -7,6 +7,7 @@
 #include <nologsystem.h>
 #endif // LOGSYSTEM_MODULE
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -19,7 +20,7 @@ add_system(void (*_system)(Component*), CID _cid)
     [current_scene->systems_array_length] = _system;
   current_scene->systems_args
     [current_scene->systems_array_length] = _cid;
-  current_scene->systems_array_length += 1;
+  current_scene->systems_array_length += 0x1;
   return;
 };
 
@@ -30,16 +31,26 @@ reg_component()
 };
 
 void
-add_component(Entity * _ent, Component * _component, CID _cid)
+add_component(CID _ent, Component * _component, CID _cid)
 {
   // Add component to entity.
-  _ent->components[_ent->components_length++] = 
+  current_scene->entities[_ent]->components
+    [current_scene->entities[_ent]->components_length++] = 
     _component;
 
   // Add component to scene components.
   current_scene->components_arrays[_cid]
     [current_scene->specific_components_length[_cid]++]
     = _component;
+};
+
+Component*
+allocate_component(size_t _size)
+{
+  Component* comp = (Component*)
+    malloc(_size);
+  memset(comp, 0x0, _size);
+  return comp;
 };
 
 Scene*
@@ -49,7 +60,7 @@ create_scene()
   Scene * scene = (Scene*)
     malloc(sizeof(Scene));
   // Clear segment.
-  memset(scene, 0, sizeof(Scene));
+  memset(scene, 0x0, sizeof(Scene));
   return scene;
 };
 
@@ -69,11 +80,32 @@ get_scene()
   return current_scene;
 };
 
+CID
+create_entity()
+{
+  Entity * ent = (Entity*)
+    malloc(sizeof(Entity));
+  memset(ent, 0x0, sizeof(Entity));
+  ent->id = current_scene->entities_length;
+  current_scene->entities[current_scene->entities_length++] = ent;
+
+  return ent->id;
+};
+
 void
 ecs_step()
 {
-  for (int i = 0; i < current_scene->systems_array_length; i++)
+  char log[0xFF];
+  for (unsigned int i = 0x0; i < current_scene->systems_array_length; i++)
     {
-      // TODO: execute all systems with all components.
+      for (unsigned int j = 0x0; 
+          j < current_scene->specific_components_length
+            [current_scene->systems_args[i]]; 
+          j++)
+        {
+          (current_scene->systems_array[i](
+            current_scene->components_arrays[
+            current_scene->systems_args[i]][j]));
+        };
     };
 };
